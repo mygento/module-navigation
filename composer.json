@@ -1,0 +1,41 @@
+{
+  "name": "mygento/module-navigation",
+  "description": "Magento 2 Menu Module",
+  "type": "magento2-module",
+  "license": "OSL-3.0",
+  "authors": [{
+    "name": "Nikita Tarasov",
+    "email": "nikita@mygento.com"
+  }],
+  "keywords": [
+    "magento",
+    "magento2",
+    "mygento"
+  ],
+  "require": {
+  },
+  "require-dev": {
+    "mygento/coding-standard": "v2.4.x-dev"
+  },
+  "autoload": {
+    "files": [
+      "registration.php"
+    ],
+    "psr-4": {
+      "Mygento\\Navigation\\": ""
+    }
+  },
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://repo.magento.com"
+    }
+  ],
+  "config": {
+    "allow-plugins": {
+      "magento/composer-dependency-version-audit-plugin": false,
+      "magento/magento-composer-installer": false,
+      "phpro/grumphp": true
+    }
+  }
+}
