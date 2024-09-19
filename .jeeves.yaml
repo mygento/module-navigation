@@ -1,0 +1,54 @@
+Mygento:
+  Navigation:
+    entities:
+      Menu:
+        columns:
+          entity_id:
+            type: int
+            pk: true
+            identity: true
+            unsigned: true
+            comment: 'Entity ID'
+          code:
+            type: varchar
+            nullable: false
+            comment: 'Code'
+      Item:
+        per_store: true
+        graphql: true
+        columns:
+          entity_id:
+            type: int
+            pk: true
+            identity: true
+            unsigned: true
+            comment: 'Entity ID'
+          menu:
+            type: int
+            unsigned: true
+            comment: 'Menu ID'
+            source: 'Mygento\Navigation\Model\Source\Menu'
+          is_active:
+            type: boolean
+          name:
+            type: varchar
+            nullable: false
+            comment: 'Name'
+          entity_type:
+            type: varchar
+            length: 50
+            nullable: false
+            comment: 'Link Type'
+            unsigned: true
+            default: 0
+            source: 'Mygento\Navigation\Model\Source\EntityType'
+          entity_slug:
+            type: varchar
+            nullable: true
+            comment: 'Link Identifier'
+          sort_order:
+            type: smallint
+            nullable: false
+            comment: 'Link Sort Order'
+            unsigned: true
+            default: 0

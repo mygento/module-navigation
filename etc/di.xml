@@ -1,0 +1,110 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Mygento\Navigation\Api\MenuRepositoryInterface" type="Mygento\Navigation\Model\MenuRepository"/>
+    <preference for="Mygento\Navigation\Api\ItemRepositoryInterface" type="Mygento\Navigation\Model\ItemRepository"/>
+    <preference for="Mygento\Navigation\Api\Data\MenuInterface" type="Mygento\Navigation\Model\Menu"/>
+    <preference for="Mygento\Navigation\Api\Data\ItemInterface" type="Mygento\Navigation\Model\Item"/>
+    <preference for="Mygento\Navigation\Api\Data\MenuSearchResultsInterface" type="Mygento\Navigation\Model\MenuSearchResults"/>
+    <preference for="Mygento\Navigation\Api\Data\ItemSearchResultsInterface" type="Mygento\Navigation\Model\ItemSearchResults"/>
+    <type name="Magento\Framework\Model\Entity\RepositoryFactory">
+        <arguments>
+            <argument name="entities" xsi:type="array">
+                <item name="Mygento\Navigation\Api\Data\MenuInterface" xsi:type="string">Mygento\Navigation\Api\MenuRepositoryInterface</item>
+                <item name="Mygento\Navigation\Api\Data\ItemInterface" xsi:type="string">Mygento\Navigation\Api\ItemRepositoryInterface</item>
+            </argument>
+        </arguments>
+    </type>
+    <virtualType name="Mygento\Navigation\Model\SearchCriteria\ItemFilterProcessor" type="Magento\Framework\Api\SearchCriteria\CollectionProcessor\FilterProcessor">
+        <arguments>
+            <argument name="customFilters" xsi:type="array">
+                <item name="store_id" xsi:type="object">Mygento\Navigation\Model\SearchCriteria\ItemStoreFilter</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Mygento\Navigation\Model\SearchCriteria\MenuCollectionProcessor" type="Magento\Framework\Api\SearchCriteria\CollectionProcessor">
+        <arguments>
+            <argument name="processors" xsi:type="array">
+                <item name="filters" xsi:type="object">Magento\Framework\Api\SearchCriteria\CollectionProcessor\FilterProcessor</item>
+                <item name="sorting" xsi:type="object">Magento\Framework\Api\SearchCriteria\CollectionProcessor\SortingProcessor</item>
+                <item name="pagination" xsi:type="object">Magento\Framework\Api\SearchCriteria\CollectionProcessor\PaginationProcessor</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Mygento\Navigation\Model\SearchCriteria\ItemCollectionProcessor" type="Magento\Framework\Api\SearchCriteria\CollectionProcessor">
+        <arguments>
+            <argument name="processors" xsi:type="array">
+                <item name="filters" xsi:type="object">Mygento\Navigation\Model\SearchCriteria\ItemFilterProcessor</item>
+                <item name="sorting" xsi:type="object">Magento\Framework\Api\SearchCriteria\CollectionProcessor\SortingProcessor</item>
+                <item name="pagination" xsi:type="object">Magento\Framework\Api\SearchCriteria\CollectionProcessor\PaginationProcessor</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="Mygento\Navigation\Model\MenuRepository">
+        <arguments>
+            <argument name="collectionProcessor" xsi:type="object">Mygento\Navigation\Model\SearchCriteria\MenuCollectionProcessor</argument>
+        </arguments>
+    </type>
+    <type name="Mygento\Navigation\Model\ItemRepository">
+        <arguments>
+            <argument name="collectionProcessor" xsi:type="object">Mygento\Navigation\Model\SearchCriteria\ItemCollectionProcessor</argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\EntityManager\MetadataPool">
+        <arguments>
+            <argument name="metadata" xsi:type="array">
+                <item name="Mygento\Navigation\Api\Data\ItemInterface" xsi:type="array">
+                    <item name="entityTableName" xsi:type="string">mygento_navigation_item</item>
+                    <item name="identifierField" xsi:type="string">entity_id</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\EntityManager\Operation\ExtensionPool">
+        <arguments>
+            <argument name="extensionActions" xsi:type="array">
+                <item name="Mygento\Navigation\Api\Data\ItemInterface" xsi:type="array">
+                    <item name="read" xsi:type="array">
+                        <item name="storeReader" xsi:type="string">Mygento\Navigation\Model\ResourceModel\Item\Relation\Store\ReadHandler</item>
+                    </item>
+                    <item name="create" xsi:type="array">
+                        <item name="storeCreator" xsi:type="string">Mygento\Navigation\Model\ResourceModel\Item\Relation\Store\SaveHandler</item>
+                    </item>
+                    <item name="update" xsi:type="array">
+                        <item name="storeUpdater" xsi:type="string">Mygento\Navigation\Model\ResourceModel\Item\Relation\Store\SaveHandler</item>
+                    </item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\EntityManager\HydratorPool">
+        <arguments>
+            <argument name="hydrators" xsi:type="array">
+                <item name="Mygento\Navigation\Api\Data\ItemInterface" xsi:type="string">Magento\Framework\EntityManager\AbstractModelHydrator</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="navigation_menu_listing_data_source" xsi:type="string">Mygento\Navigation\Model\ResourceModel\Menu\Grid\Collection</item>
+                <item name="navigation_item_listing_data_source" xsi:type="string">Mygento\Navigation\Model\ResourceModel\Item\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Mygento\Navigation\Model\ResourceModel\Menu\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">mygento_navigation_menu</argument>
+            <argument name="eventPrefix" xsi:type="string">navigation_menu_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">menu_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Mygento\Navigation\Model\ResourceModel\Menu</argument>
+        </arguments>
+    </type>
+    <type name="Mygento\Navigation\Model\ResourceModel\Item\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">mygento_navigation_item</argument>
+            <argument name="eventPrefix" xsi:type="string">navigation_item_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">item_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Mygento\Navigation\Model\ResourceModel\Item</argument>
+        </arguments>
+    </type>
+</config>
