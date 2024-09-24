@@ -19,16 +19,16 @@ class Menu implements OptionSourceInterface
         private SearchCriteriaBuilder $builder,
     ) {
     }
-    
-    public function toOptionArray(): array 
+
+    public function toOptionArray(): array
     {
         $result = [];
-        
+
         $data = $this->repo->getList($this->builder->create())->getItems();
         foreach($data as $i) {
             $result[] = ['value' => $i->getEntityId(), 'label' => $i->getCode()];
         }
-        
+
         return $result;
     }
 }

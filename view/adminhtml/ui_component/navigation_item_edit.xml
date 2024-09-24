@@ -123,6 +123,7 @@
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="source" xsi:type="string">item</item>
+                    <item name="default" xsi:type="string">catalog_category</item>
                 </item>
             </argument>
             <settings>
@@ -130,6 +131,191 @@
                 <label translate="true">Entity Type</label>
                 <visible>true</visible>
                 <dataScope>entity_type</dataScope>
+                <switcherConfig>
+                    <rules>
+                        <rule name="0">
+                            <value></value>
+                            <actions>
+                                <action name="0">
+                                    <target>navigation_item_edit.navigation_item_edit.general.assign_cms_page_container</target>
+                                    <callback>visible</callback>
+                                    <params>
+                                        <param name="0" xsi:type="boolean">false</param>
+                                    </params>
+                                </action>
+                                <action name="1">
+                                    <target>navigation_item_edit.navigation_item_edit.general.assign_cms_block_container</target>
+                                    <callback>visible</callback>
+                                    <params>
+                                        <param name="0" xsi:type="boolean">false</param>
+                                    </params>
+                                </action>
+                                <action name="2">
+                                    <target>navigation_item_edit.navigation_item_edit.general.catalog_category_entity</target>
+                                    <callback>hide</callback>
+                                </action>
+                                <action name="3">
+                                    <target>navigation_item_edit.navigation_item_edit.general.catalog_product_entity_container</target>
+                                    <callback>visible</callback>
+                                    <params>
+                                        <param name="0" xsi:type="boolean">false</param>
+                                    </params>
+                                </action>
+                            </actions>
+                        </rule>
+                        <rule name="1">
+                            <value>custom</value>
+                            <actions>
+                                <action name="0">
+                                    <target>navigation_item_edit.navigation_item_edit.general.assign_cms_page_container</target>
+                                    <callback>visible</callback>
+                                    <params>
+                                        <param name="0" xsi:type="boolean">false</param>
+                                    </params>
+                                </action>
+                                <action name="1">
+                                    <target>navigation_item_edit.navigation_item_edit.general.assign_cms_block_container</target>
+                                    <callback>visible</callback>
+                                    <params>
+                                        <param name="0" xsi:type="boolean">false</param>
+                                    </params>
+                                </action>
+                                <action name="2">
+                                    <target>navigation_item_edit.navigation_item_edit.general.catalog_category_entity</target>
+                                    <callback>hide</callback>
+                                </action>
+                                <action name="3">
+                                    <target>navigation_item_edit.navigation_item_edit.general.catalog_product_entity_container</target>
+                                    <callback>visible</callback>
+                                    <params>
+                                        <param name="0" xsi:type="boolean">false</param>
+                                    </params>
+                                </action>
+                            </actions>
+                        </rule>
+                        <rule name="2">
+                            <value>cms_page</value>
+                            <actions>
+                                <action name="0">
+                                    <target>navigation_item_edit.navigation_item_edit.general.assign_cms_page_container</target>
+                                    <callback>visible</callback>
+                                    <params>
+                                        <param name="0" xsi:type="boolean">true</param>
+                                    </params>
+                                </action>
+                                <action name="1">
+                                    <target>navigation_item_edit.navigation_item_edit.general.assign_cms_block_container</target>
+                                    <callback>visible</callback>
+                                    <params>
+                                        <param name="0" xsi:type="boolean">false</param>
+                                    </params>
+                                </action>
+                                <action name="2">
+                                    <target>navigation_item_edit.navigation_item_edit.general.catalog_category_entity</target>
+                                    <callback>hide</callback>
+                                </action>
+                                <action name="3">
+                                    <target>navigation_item_edit.navigation_item_edit.general.catalog_product_entity_container</target>
+                                    <callback>visible</callback>
+                                    <params>
+                                        <param name="0" xsi:type="boolean">false</param>
+                                    </params>
+                                </action>
+                            </actions>
+                        </rule>
+                        <rule name="3">
+                            <value>cms_block</value>
+                            <actions>
+                                <action name="0">
+                                    <target>navigation_item_edit.navigation_item_edit.general.assign_cms_page_container</target>
+                                    <callback>visible</callback>
+                                    <params>
+                                        <param name="0" xsi:type="boolean">false</param>
+                                    </params>
+                                </action>
+                                <action name="1">
+                                    <target>navigation_item_edit.navigation_item_edit.general.assign_cms_block_container</target>
+                                    <callback>visible</callback>
+                                    <params>
+                                        <param name="0" xsi:type="boolean">true</param>
+                                    </params>
+                                </action>
+                                <action name="2">
+                                    <target>navigation_item_edit.navigation_item_edit.general.catalog_category_entity</target>
+                                    <callback>hide</callback>
+                                </action>
+                                <action name="3">
+                                    <target>navigation_item_edit.navigation_item_edit.general.catalog_product_entity_container</target>
+                                    <callback>visible</callback>
+                                    <params>
+                                        <param name="0" xsi:type="boolean">false</param>
+                                    </params>
+                                </action>
+                            </actions>
+                        </rule>
+                        <rule name="4">
+                            <value>catalog_category</value>
+                            <actions>
+                                <action name="0">
+                                    <target>navigation_item_edit.navigation_item_edit.general.assign_cms_page_container</target>
+                                    <callback>visible</callback>
+                                    <params>
+                                        <param name="0" xsi:type="boolean">false</param>
+                                    </params>
+                                </action>
+                                <action name="1">
+                                    <target>navigation_item_edit.navigation_item_edit.general.assign_cms_block_container</target>
+                                    <callback>visible</callback>
+                                    <params>
+                                        <param name="0" xsi:type="boolean">false</param>
+                                    </params>
+                                </action>
+                                <action name="2">
+                                    <target>navigation_item_edit.navigation_item_edit.general.catalog_category_entity</target>
+                                    <callback>show</callback>
+                                </action>
+                                <action name="3">
+                                    <target>navigation_item_edit.navigation_item_edit.general.catalog_product_entity_container</target>
+                                    <callback>visible</callback>
+                                    <params>
+                                        <param name="0" xsi:type="boolean">false</param>
+                                    </params>
+                                </action>
+                            </actions>
+                        </rule>
+                        <rule name="5">
+                            <value>catalog_product</value>
+                            <actions>
+                                <action name="0">
+                                    <target>navigation_item_edit.navigation_item_edit.general.assign_cms_page_container</target>
+                                    <callback>visible</callback>
+                                    <params>
+                                        <param name="0" xsi:type="boolean">false</param>
+                                    </params>
+                                </action>
+                                <action name="1">
+                                    <target>navigation_item_edit.navigation_item_edit.general.assign_cms_block_container</target>
+                                    <callback>visible</callback>
+                                    <params>
+                                        <param name="0" xsi:type="boolean">false</param>
+                                    </params>
+                                </action>
+                                <action name="2">
+                                    <target>navigation_item_edit.navigation_item_edit.general.catalog_category_entity</target>
+                                    <callback>hide</callback>
+                                </action>
+                                <action name="3">
+                                    <target>navigation_item_edit.navigation_item_edit.general.catalog_product_entity_container</target>
+                                    <callback>visible</callback>
+                                    <params>
+                                        <param name="0" xsi:type="boolean">true</param>
+                                    </params>
+                                </action>
+                            </actions>
+                        </rule>
+                    </rules>
+                    <enabled>true</enabled>
+                </switcherConfig>
                 <validation>
                     <rule name="required-entry" xsi:type="boolean">true</rule>
                 </validation>
@@ -143,19 +329,121 @@
                 </select>
             </formElements>
         </field>
-        <field name="entity_slug" formElement="input">
+        <field name="catalog_category_entity" component="Magento_Catalog/js/components/new-category" sortOrder="30" formElement="select">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
-                    <item name="source" xsi:type="string">item</item>
+                    <item name="filterOptions" xsi:type="boolean">true</item>
+                    <item name="multiple" xsi:type="boolean">false</item>
+                    <item name="showCheckbox" xsi:type="boolean">false</item>
+                    <item name="disableLabel" xsi:type="boolean">true</item>
+                    <item name="levelsVisibility" xsi:type="number">1</item>
                 </item>
             </argument>
             <settings>
-                <dataType>text</dataType>
-                <label translate="true">Entity Slug</label>
-                <visible>true</visible>
-                <dataScope>entity_slug</dataScope>
+                <elementTmpl>ui/grid/filters/elements/ui-select</elementTmpl>
+                <label translate="true">Category</label>
+                <dataScope>category_ids</dataScope>
+                <componentType>field</componentType>
+                <visible>false</visible>
+                <listens>
+                    <link name="${ $.namespace }.${ $.namespace }:responseData">setParsed</link>
+                </listens>
             </settings>
+            <formElements>
+                <select>
+                    <settings>
+                        <options class="Magento\Catalog\Ui\Component\Product\Form\Categories\Options"/>
+                    </settings>
+                </select>
+            </formElements>
         </field>
+        <container name="catalog_product_entity_container" component="Magento_Ui/js/form/components/group" sortOrder="10">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="formElement" xsi:type="string">container</item>
+                    <item name="breakLine" xsi:type="boolean">false</item>
+                    <item name="dataScope" xsi:type="string" />
+                    <item name="label" xsi:type="string" />
+                </item>
+            </argument>
+            <button name="assign_catalog_product_button" template="ui/form/components/button/container">
+                <settings>
+                    <title translate="true">Assign Catalog Product</title>
+                    <dataScope />
+                </settings>
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="formElement" xsi:type="string">container</item>
+                        <item name="actions" xsi:type="array">
+                            <item name="0" xsi:type="array">
+                                <item name="targetName" xsi:type="string">navigation_item_edit.navigation_item_edit.general.assign_catalog_product</item>
+                                <item name="actionName" xsi:type="string">toggleModal</item>
+                            </item>
+                        </item>
+                        <item name="additionalForGroup" xsi:type="boolean">true</item>
+                        <item name="additionalClasses" xsi:type="string">admin__field-medium</item>
+                    </item>
+                </argument>
+            </button>
+        </container>
+        <container name="assign_cms_page_container" component="Magento_Ui/js/form/components/group" sortOrder="10">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="formElement" xsi:type="string">container</item>
+                    <item name="breakLine" xsi:type="boolean">false</item>
+                    <item name="dataScope" xsi:type="string" />
+                    <item name="label" xsi:type="string" />
+                </item>
+            </argument>
+            <button name="assign_cms_page_button" template="ui/form/components/button/container">
+                <settings>
+                    <title translate="true">Assign CMS Page</title>
+                    <dataScope />
+                </settings>
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="formElement" xsi:type="string">container</item>
+                        <item name="actions" xsi:type="array">
+                            <item name="0" xsi:type="array">
+                                <item name="targetName" xsi:type="string">navigation_item_edit.navigation_item_edit.general.assign_cms_page</item>
+                                <item name="actionName" xsi:type="string">toggleModal</item>
+                            </item>
+                        </item>
+                        <item name="additionalForGroup" xsi:type="boolean">true</item>
+                        <item name="additionalClasses" xsi:type="string">admin__field-medium</item>
+                    </item>
+                </argument>
+            </button>
+        </container>
+        <container name="assign_cms_block_container" component="Magento_Ui/js/form/components/group" sortOrder="10">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="formElement" xsi:type="string">container</item>
+                    <item name="breakLine" xsi:type="boolean">false</item>
+                    <item name="dataScope" xsi:type="string" />
+                    <item name="label" xsi:type="string" />
+                </item>
+            </argument>
+            <button name="assign_cms_block_button" template="ui/form/components/button/container">
+                <settings>
+                    <title translate="true">Assign CMS Block</title>
+                    <dataScope />
+                </settings>
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="formElement" xsi:type="string">container</item>
+                        <item name="actions" xsi:type="array">
+                            <item name="0" xsi:type="array">
+                                <item name="targetName" xsi:type="string">navigation_item_edit.navigation_item_edit.general.assign_cms_block</item>
+                                <item name="actionName" xsi:type="string">toggleModal</item>
+                            </item>
+                        </item>
+                        <item name="additionalForGroup" xsi:type="boolean">true</item>
+                        <item name="additionalClasses" xsi:type="string">admin__field-medium</item>
+                    </item>
+                </argument>
+            </button>
+        </container>
         <field name="sort_order" formElement="input">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
@@ -197,5 +485,89 @@
                 </multiselect>
             </formElements>
         </field>
+        <modal name="assign_cms_page">
+            <settings>
+                <listens>
+                    <link name="navigation_page_select_grid.navigation_page_select_grid.columns.ids:lastSelected">closeModal</link>
+                </listens>
+                <options>
+                    <option name="title" xsi:type="string" translate="true">Select Page</option>
+                </options>
+            </settings>
+            <insertListing name="navigation_page_select_grid" sortOrder="10">
+                <settings>
+                    <externalData>page_id</externalData>
+                    <externalProvider>${ $.ns }.navigation_page_select_grid_data_source</externalProvider>
+                    <loading>false</loading>
+                    <selectionsProvider>${ $.ns }.${ $.ns }.columns.ids</selectionsProvider>
+                    <autoRender>true</autoRender>
+                    <dataScope>page_id</dataScope>
+                    <ns>navigation_page_select_grid</ns>
+                    <dataLinks>
+                        <imports>false</imports>
+                        <exports>true</exports>
+                    </dataLinks>
+                    <listens>
+                        <link name="navigation_page_select_grid.navigation_page_select_grid.columns.ids:lastSelected">save</link>
+                    </listens>
+                </settings>
+            </insertListing>
+        </modal>
+        <modal name="assign_cms_block">
+            <settings>
+                <listens>
+                    <link name="navigation_block_select_grid.navigation_block_select_grid.columns.ids:lastSelected">closeModal</link>
+                </listens>
+                <options>
+                    <option name="title" xsi:type="string" translate="true">Select Block</option>
+                </options>
+            </settings>
+            <insertListing name="navigation_block_select_grid" sortOrder="10">
+                <settings>
+                    <externalData>block_id</externalData>
+                    <externalProvider>${ $.ns }.navigation_block_select_grid_data_source</externalProvider>
+                    <loading>false</loading>
+                    <selectionsProvider>${ $.ns }.${ $.ns }.columns.ids</selectionsProvider>
+                    <autoRender>true</autoRender>
+                    <dataScope>block_id</dataScope>
+                    <ns>navigation_block_select_grid</ns>
+                    <dataLinks>
+                        <imports>false</imports>
+                        <exports>true</exports>
+                    </dataLinks>
+                    <listens>
+                        <link name="navigation_block_select_grid.navigation_block_select_grid.columns.ids:lastSelected">save</link>
+                    </listens>
+                </settings>
+            </insertListing>
+        </modal>
+        <modal name="assign_catalog_product">
+            <settings>
+                <listens>
+                    <link name="navigation_product_select_grid.navigation_product_select_grid.columns.ids:lastSelected">closeModal</link>
+                </listens>
+                <options>
+                    <option name="title" xsi:type="string" translate="true">Select Product</option>
+                </options>
+            </settings>
+            <insertListing name="navigation_product_select_grid" sortOrder="10">
+                <settings>
+                    <externalData>entity_id</externalData>
+                    <externalProvider>${ $.ns }.navigation_product_select_grid_data_source</externalProvider>
+                    <loading>false</loading>
+                    <selectionsProvider>${ $.ns }.${ $.ns }.columns.ids</selectionsProvider>
+                    <autoRender>true</autoRender>
+                    <dataScope>entity_id</dataScope>
+                    <ns>navigation_product_select_grid</ns>
+                    <dataLinks>
+                        <imports>false</imports>
+                        <exports>true</exports>
+                    </dataLinks>
+                    <listens>
+                        <link name="navigation_product_select_grid.navigation_product_select_grid.columns.ids:lastSelected">save</link>
+                    </listens>
+                </settings>
+            </insertListing>
+        </modal>
     </fieldset>
 </form>

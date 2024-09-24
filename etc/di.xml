@@ -86,6 +86,8 @@
     <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
         <arguments>
             <argument name="collections" xsi:type="array">
+                <item name="navigation_block_select_grid_data_source" xsi:type="string">Magento\Cms\Model\ResourceModel\Block\Grid\Collection</item>
+                <item name="navigation_page_select_grid_data_source" xsi:type="string">Magento\Cms\Model\ResourceModel\Page\Grid\Collection</item>
                 <item name="navigation_menu_listing_data_source" xsi:type="string">Mygento\Navigation\Model\ResourceModel\Menu\Grid\Collection</item>
                 <item name="navigation_item_listing_data_source" xsi:type="string">Mygento\Navigation\Model\ResourceModel\Item\Grid\Collection</item>
             </argument>

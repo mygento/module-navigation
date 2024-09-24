@@ -14,7 +14,6 @@ class EntityType implements OptionSourceInterface
 {
     public function __construct(private array $types = [])
     {
-        
     }
 
     public function toOptionArray(): array
@@ -23,6 +22,7 @@ class EntityType implements OptionSourceInterface
         foreach ($this->types as $code => $type) {
             $result[] = ['value' => $code, 'label' => $type];
         }
+
         return $result;
     }
 }
