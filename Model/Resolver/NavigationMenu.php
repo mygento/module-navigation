@@ -27,7 +27,7 @@ class NavigationMenu implements ResolverInterface
         private Item $itemResource,
         array $dataBuilders = [],
     ) {
-        $this->dataBuilders = $dataBuilders;
+        $this->dataBuilders = $this->prepareDataBuilders($dataBuilders);
     }
 
     /**
@@ -52,7 +52,7 @@ class NavigationMenu implements ResolverInterface
 
         try {
             $menu = $this->menuRepository->getByCode($code);
-        } catch (LocalizedException $e) {
+        } catch (LocalizedException) {
             throw new GraphQlNoSuchEntityException(__('Product menu "%1" not found or disabled', $code));
         }
         $storeId = (int) $context->getExtensionAttributes()->getStore()->getId();
@@ -75,13 +75,40 @@ class NavigationMenu implements ResolverInterface
     {
         $preparedItems = [];
         foreach ($itemsByType as $type => $items) {
-            $dataBuilder = $this->dataBuilders[$type] ?? null;
-            if ($dataBuilder && method_exists($dataBuilder, 'addData')) {
-                $items = $dataBuilder->addData($items, $targetEntityIds[$type]);
+            $dataBuilders = $this->dataBuilders[$type] ?? [];
+            foreach ($dataBuilders as $dataBuilder) {
+                if ($dataBuilder && method_exists($dataBuilder, 'addData')) {
+                    $items = $dataBuilder->addData($items, $targetEntityIds[$type]);
+                }
             }
             $preparedItems = array_merge($preparedItems, $items);
         }
 
         return $preparedItems;
+    }
+
+    private function prepareDataBuilders(array $dataBuilders): array
+    {
+        $buildersByType = [];
+        foreach ($dataBuilders as $builderConfig) {
+            if (!isset($builderConfig['entity_type'], $builderConfig['class'], $builderConfig['sortOrder'])) {
+                continue;
+            }
+
+            $buildersByType[$builderConfig['entity_type']][] = [
+                'class' => $builderConfig['class'],
+                'sortOrder' => $builderConfig['sortOrder'],
+            ];
+        }
+
+        foreach ($buildersByType as $type => $builders) {
+            usort($builders, function ($a, $b) {
+                return $a['sortOrder'] <=> $b['sortOrder'];
+            });
+
+            $buildersByType[$type] = array_column($builders, 'class');
+        }
+
+        return $buildersByType;
     }
 }
