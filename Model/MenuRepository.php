@@ -2,7 +2,7 @@
 
 /**
  * @author Mygento Team
- * @copyright 2023 Mygento (https://www.mygento.com)
+ * @copyright 2023-2026 Mygento (https://www.mygento.com)
  * @package Mygento_Navigation
  */
 
@@ -31,8 +31,7 @@ class MenuRepository implements MenuRepositoryInterface
         private readonly MenuInterfaceFactory $entityFactory,
         private readonly MenuSearchResultsInterfaceFactory $searchResultsFactory,
         private readonly CollectionProcessorInterface $collectionProcessor,
-    ) {
-    }
+    ) {}
 
     /**
      * @throws NoSuchEntityException
@@ -43,7 +42,7 @@ class MenuRepository implements MenuRepositoryInterface
         $this->resource->load($entity, $entityId);
         if (!$entity->getId()) {
             throw new NoSuchEntityException(
-                __('A Navigation Menu with id "%1" does not exist', $entityId)
+                __('A Navigation Menu with id "%1" does not exist', $entityId),
             );
         }
 
@@ -60,7 +59,7 @@ class MenuRepository implements MenuRepositoryInterface
         } catch (\Exception $exception) {
             throw new CouldNotSaveException(
                 __('Could not save the Navigation Menu'),
-                $exception
+                $exception,
             );
         }
 
@@ -76,7 +75,7 @@ class MenuRepository implements MenuRepositoryInterface
             $this->resource->delete($entity);
         } catch (\Exception $exception) {
             throw new CouldNotDeleteException(
-                __($exception->getMessage())
+                __($exception->getMessage()),
             );
         }
 
@@ -90,6 +89,19 @@ class MenuRepository implements MenuRepositoryInterface
     public function deleteById(int $entityId): bool
     {
         return $this->delete($this->getById($entityId));
+    }
+
+    public function getByCode(string $code): MenuInterface
+    {
+        $entity = $this->entityFactory->create();
+        $this->resource->loadByCode($entity, $code);
+        if (!$entity->getId()) {
+            throw new NoSuchEntityException(
+                __('A menu with code "%1" does not exist', $code),
+            );
+        }
+
+        return $entity;
     }
 
     public function getList(SearchCriteriaInterface $criteria): MenuSearchResultsInterface

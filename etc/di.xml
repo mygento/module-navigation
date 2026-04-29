@@ -109,4 +109,11 @@
             <argument name="resourceModel" xsi:type="string">Mygento\Navigation\Model\ResourceModel\Item</argument>
         </arguments>
     </type>
+    <type name="Mygento\Navigation\Model\Resolver\NavigationMenu">
+        <arguments>
+            <argument name="dataBuilders" xsi:type="array">
+                <item name="catalog_category" xsi:type="object">Mygento\Navigation\Model\DataBuilder\ItemCategory</item>
+            </argument>
+        </arguments>
+    </type>
 </config>

@@ -2,7 +2,7 @@
 
 /**
  * @author Mygento Team
- * @copyright 2023 Mygento (https://www.mygento.com)
+ * @copyright 2023-2026 Mygento (https://www.mygento.com)
  * @package Mygento_Navigation
  */
 
@@ -16,8 +16,7 @@ class ReadHandler implements ExtensionInterface
 {
     public function __construct(
         private readonly Item $resource,
-    ) {
-    }
+    ) {}
 
     /**
      * @inheritDoc

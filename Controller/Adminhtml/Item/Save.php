@@ -2,7 +2,7 @@
 
 /**
  * @author Mygento Team
- * @copyright 2023 Mygento (https://www.mygento.com)
+ * @copyright 2023-2026 Mygento (https://www.mygento.com)
  * @package Mygento_Navigation
  */
 
@@ -52,7 +52,7 @@ class Save extends Item
             } catch (NoSuchEntityException $e) {
                 if (!$entity->getId()) {
                     $this->messageManager->addErrorMessage(
-                        __('This Item no longer exists')->render()
+                        __('This Item no longer exists')->render(),
                     );
 
                     return $resultRedirect->setPath('*/*/');
@@ -67,7 +67,7 @@ class Save extends Item
         try {
             $this->repository->save($entity);
             $this->messageManager->addSuccessMessage(
-                __('You saved the Item')->render()
+                __('You saved the Item')->render(),
             );
             $this->dataPersistor->clear('navigation_item');
             if ($this->getRequest()->getParam('back')) {
@@ -80,7 +80,7 @@ class Save extends Item
         } catch (\Exception $e) {
             $this->messageManager->addExceptionMessage(
                 $e,
-                __('Something went wrong while saving the Item')->render()
+                __('Something went wrong while saving the Item')->render(),
             );
         }
         $this->dataPersistor->set('navigation_item', $data);

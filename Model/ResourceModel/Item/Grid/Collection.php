@@ -2,7 +2,7 @@
 
 /**
  * @author Mygento Team
- * @copyright 2023 Mygento (https://www.mygento.com)
+ * @copyright 2023-2026 Mygento (https://www.mygento.com)
  * @package Mygento_Navigation
  */
 
@@ -48,7 +48,7 @@ class Collection extends ParentCollection implements SearchResultInterface
             $fetchStrategy,
             $eventManager,
             $connection,
-            $resource
+            $resource,
         );
         $this->_eventPrefix = $eventPrefix;
         $this->_eventObject = $eventObject;

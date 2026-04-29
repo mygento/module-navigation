@@ -2,7 +2,7 @@
 
 /**
  * @author Mygento Team
- * @copyright 2023 Mygento (https://www.mygento.com)
+ * @copyright 2023-2026 Mygento (https://www.mygento.com)
  * @package Mygento_Navigation
  */
 
@@ -23,7 +23,7 @@ class Delete extends Item
         $entityId = (int) $this->getRequest()->getParam('id');
         if (!$entityId) {
             $this->messageManager->addErrorMessage(
-                __('We can not find a Item to delete.')->render()
+                __('We can not find a Item to delete.')->render(),
             );
 
             return $resultRedirect->setPath('*/*/');
@@ -32,7 +32,7 @@ class Delete extends Item
         try {
             $this->repository->deleteById($entityId);
             $this->messageManager->addSuccessMessage(
-                __('You deleted the Item')->render()
+                __('You deleted the Item')->render(),
             );
 
             return $resultRedirect->setPath('*/*/');

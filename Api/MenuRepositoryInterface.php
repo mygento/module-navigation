@@ -2,7 +2,7 @@
 
 /**
  * @author Mygento Team
- * @copyright 2023 Mygento (https://www.mygento.com)
+ * @copyright 2023-2026 Mygento (https://www.mygento.com)
  * @package Mygento_Navigation
  */
 
@@ -23,6 +23,14 @@ interface MenuRepositoryInterface
      * @throws \Magento\Framework\Exception\LocalizedException
      */
     public function getById(int $entityId): Data\MenuInterface;
+
+    /**
+     * Retrieve menu by code
+     *
+     * @throws \Magento\Framework\Exception\LocalizedException
+     * @return \Mygento\Navigation\Api\Data\MenuInterface
+     */
+    public function getByCode(string $code): Data\MenuInterface;
 
     /**
      * Retrieve Menu entities matching the specified criteria

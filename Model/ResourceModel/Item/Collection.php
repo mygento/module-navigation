@@ -2,7 +2,7 @@
 
 /**
  * @author Mygento Team
- * @copyright 2023 Mygento (https://www.mygento.com)
+ * @copyright 2023-2026 Mygento (https://www.mygento.com)
  * @package Mygento_Navigation
  */
 
@@ -43,7 +43,7 @@ class Collection extends AbstractCollection
             $fetchStrategy,
             $eventManager,
             $connection,
-            $resource
+            $resource,
         );
     }
 
@@ -54,7 +54,7 @@ class Collection extends AbstractCollection
     {
         $this->_init(
             Item::class,
-            ItemResource::class
+            ItemResource::class,
         );
     }
 
@@ -69,7 +69,7 @@ class Collection extends AbstractCollection
 
         $connection = $this->getConnection();
         $select = $connection->select()->from(
-            ['entity_store' => $this->getTable($this->getMainTable() . '_store')]
+            ['entity_store' => $this->getTable($this->getMainTable() . '_store')],
         )->where('entity_store.entity_id IN (?)', $linkedIds);
 
         $result = $connection->fetchAll($select);
@@ -79,11 +79,11 @@ class Collection extends AbstractCollection
 
         $stores = [];
         foreach ($result as $r) {
-            $stores[] = $r['store_id'];
+            $stores[$r['entity_id']][] = $r['store_id'];
         }
 
         foreach ($this as $item) {
-            $item->setData('store_id', $stores);
+            $item->setData('store_id', $stores[$item->getId()]);
         }
 
         return parent::_afterLoad();
@@ -103,7 +103,7 @@ class Collection extends AbstractCollection
         $this->getSelect()->join(
             ['store_table' => $this->getMainTable() . '_store'],
             'main_table.' . $linkField . ' = store_table.entity_id',
-            []
+            [],
         )->group('main_table.' . $linkField);
 
         parent::_renderFiltersBefore();
