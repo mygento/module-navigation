@@ -13,6 +13,7 @@
     "mygento"
   ],
   "require": {
+    "mygento/module-base": "~2.4.0"
   },
   "require-dev": {
     "mygento/coding-standard": "v2.4.x-dev"

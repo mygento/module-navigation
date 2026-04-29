@@ -2,7 +2,7 @@
 
 /**
  * @author Mygento Team
- * @copyright 2023 Mygento (https://www.mygento.com)
+ * @copyright 2023-2026 Mygento (https://www.mygento.com)
  * @package Mygento_Navigation
  */
 
@@ -41,7 +41,7 @@ class Edit extends Item
                 $entity = $this->repository->getById($entityId);
             } catch (NoSuchEntityException $e) {
                 $this->messageManager->addErrorMessage(
-                    __('This Item no longer exists')->render()
+                    __('This Item no longer exists')->render(),
                 );
                 /** @var \Magento\Backend\Model\View\Result\Redirect $resultRedirect */
                 $resultRedirect = $this->resultRedirectFactory->create();
@@ -56,11 +56,11 @@ class Edit extends Item
         $resultPage->setActiveMenu('Mygento_Navigation::item');
         $resultPage->addBreadcrumb(
             $entityId ? __('Edit Item')->render() : __('New Item')->render(),
-            $entityId ? __('Edit Item')->render() : __('New Item')->render()
+            $entityId ? __('Edit Item')->render() : __('New Item')->render(),
         );
         $resultPage->getConfig()->getTitle()->prepend(__('Item')->render());
         $resultPage->getConfig()->getTitle()->prepend(
-            $entityId ? $entity->getTitle() : __('New Item')->render()
+            $entityId ? $entity->getTitle() : __('New Item')->render(),
         );
 
         return $resultPage;

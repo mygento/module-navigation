@@ -2,7 +2,7 @@
 
 /**
  * @author Mygento Team
- * @copyright 2023 Mygento (https://www.mygento.com)
+ * @copyright 2023-2026 Mygento (https://www.mygento.com)
  * @package Mygento_Navigation
  */
 
@@ -52,7 +52,7 @@ class Save extends Menu
             } catch (NoSuchEntityException $e) {
                 if (!$entity->getId()) {
                     $this->messageManager->addErrorMessage(
-                        __('This Menu no longer exists')->render()
+                        __('This Menu no longer exists')->render(),
                     );
 
                     return $resultRedirect->setPath('*/*/');
@@ -67,7 +67,7 @@ class Save extends Menu
         try {
             $this->repository->save($entity);
             $this->messageManager->addSuccessMessage(
-                __('You saved the Menu')->render()
+                __('You saved the Menu')->render(),
             );
             $this->dataPersistor->clear('navigation_menu');
             if ($this->getRequest()->getParam('back')) {
@@ -80,7 +80,7 @@ class Save extends Menu
         } catch (\Exception $e) {
             $this->messageManager->addExceptionMessage(
                 $e,
-                __('Something went wrong while saving the Menu')->render()
+                __('Something went wrong while saving the Menu')->render(),
             );
         }
         $this->dataPersistor->set('navigation_menu', $data);

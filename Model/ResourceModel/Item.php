@@ -2,7 +2,7 @@
 
 /**
  * @author Mygento Team
- * @copyright 2023 Mygento (https://www.mygento.com)
+ * @copyright 2023-2026 Mygento (https://www.mygento.com)
  * @package Mygento_Navigation
  */
 
@@ -82,7 +82,7 @@ class Item extends AbstractDb
             ->join(
                 ['e' => $this->getMainTable()],
                 'es.entity_id = e.' . $linkField,
-                []
+                [],
             )
             ->where('e.' . $entityMetadata->getIdentifierField() . ' = :entity_id');
 

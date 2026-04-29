@@ -2,7 +2,7 @@
 
 /**
  * @author Mygento Team
- * @copyright 2023 Mygento (https://www.mygento.com)
+ * @copyright 2023-2026 Mygento (https://www.mygento.com)
  * @package Mygento_Navigation
  */
 
@@ -41,8 +41,9 @@ class ItemStatus extends \Magento\Ui\Component\Listing\Columns\Column
     {
         $statusesArray = [
             1 => __('Active'),
-            2 => __('Inactive')
+            2 => __('Inactive'),
         ];
-        return isset($statusesArray[$item]) ? $statusesArray[$item]: null;
+
+        return $statusesArray[$item] ?? null;
     }
 }
