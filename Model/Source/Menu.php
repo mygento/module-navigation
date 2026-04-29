@@ -2,7 +2,7 @@
 
 /**
  * @author Mygento Team
- * @copyright 2023 Mygento (https://www.mygento.com)
+ * @copyright 2023-2026 Mygento (https://www.mygento.com)
  * @package Mygento_Navigation
  */
 
@@ -17,15 +17,14 @@ class Menu implements OptionSourceInterface
     public function __construct(
         private MenuRepositoryInterface $repo,
         private SearchCriteriaBuilder $builder,
-    ) {
-    }
+    ) {}
 
     public function toOptionArray(): array
     {
         $result = [];
 
         $data = $this->repo->getList($this->builder->create())->getItems();
-        foreach($data as $i) {
+        foreach ($data as $i) {
             $result[] = ['value' => $i->getEntityId(), 'label' => $i->getCode()];
         }
 

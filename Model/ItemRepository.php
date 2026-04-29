@@ -2,7 +2,7 @@
 
 /**
  * @author Mygento Team
- * @copyright 2023 Mygento (https://www.mygento.com)
+ * @copyright 2023-2026 Mygento (https://www.mygento.com)
  * @package Mygento_Navigation
  */
 
@@ -33,8 +33,7 @@ class ItemRepository implements ItemRepositoryInterface
         private readonly ItemSearchResultsInterfaceFactory $searchResultsFactory,
         private readonly StoreManagerInterface $storeManager,
         private readonly CollectionProcessorInterface $collectionProcessor,
-    ) {
-    }
+    ) {}
 
     /**
      * @throws NoSuchEntityException
@@ -45,7 +44,7 @@ class ItemRepository implements ItemRepositoryInterface
         $this->resource->load($entity, $entityId);
         if (!$entity->getId()) {
             throw new NoSuchEntityException(
-                __('A Navigation Item with id "%1" does not exist', $entityId)
+                __('A Navigation Item with id "%1" does not exist', $entityId),
             );
         }
 
@@ -66,7 +65,7 @@ class ItemRepository implements ItemRepositoryInterface
         } catch (\Exception $exception) {
             throw new CouldNotSaveException(
                 __('Could not save the Navigation Item'),
-                $exception
+                $exception,
             );
         }
 
@@ -82,7 +81,7 @@ class ItemRepository implements ItemRepositoryInterface
             $this->resource->delete($entity);
         } catch (\Exception $exception) {
             throw new CouldNotDeleteException(
-                __($exception->getMessage())
+                __($exception->getMessage()),
             );
         }
 

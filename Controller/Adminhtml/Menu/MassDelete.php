@@ -2,7 +2,7 @@
 
 /**
  * @author Mygento Team
- * @copyright 2023 Mygento (https://www.mygento.com)
+ * @copyright 2023-2026 Mygento (https://www.mygento.com)
  * @package Mygento_Navigation
  */
 
@@ -40,7 +40,7 @@ class MassDelete extends Menu
             $this->repository->delete($entity);
         }
         $this->messageManager->addSuccessMessage(
-            __('A total of %1 record(s) have been deleted.', $collectionSize)->render()
+            __('A total of %1 record(s) have been deleted.', $collectionSize)->render(),
         );
         /** @var \Magento\Backend\Model\View\Result\Redirect $resultRedirect */
         $resultRedirect = $this->resultRedirectFactory->create();
