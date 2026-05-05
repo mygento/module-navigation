@@ -35,7 +35,7 @@ class FileInfo
 
     public function getMediaUrl(string $fileName): string
     {
-        return UrlInterface::URL_TYPE_MEDIA . '/' . $fileName;
+        return '/' . UrlInterface::URL_TYPE_MEDIA . '/' . $fileName;
     }
 
     public function isExist(string $fileName): bool
