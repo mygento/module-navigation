@@ -14,6 +14,7 @@ use Magento\Framework\Controller\ResultInterface;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\Registry;
+use Mygento\Base\Model\ImageUploader;
 use Mygento\Navigation\Api\Data\ItemInterfaceFactory;
 use Mygento\Navigation\Api\ItemRepositoryInterface;
 use Mygento\Navigation\Controller\Adminhtml\Item;
@@ -23,6 +24,7 @@ class Save extends Item
     public function __construct(
         private readonly DataPersistorInterface $dataPersistor,
         private readonly ItemInterfaceFactory $entityFactory,
+        private ImageUploader $imageUploader,
         ItemRepositoryInterface $repository,
         Registry $coreRegistry,
         Context $context,
@@ -63,6 +65,7 @@ class Save extends Item
             $data['entity_id'] = null;
         }
         $entity->setData($data);
+        $entity->setImage($this->processImage($data, 'image') ?? '');
 
         try {
             $this->repository->save($entity);
@@ -86,5 +89,26 @@ class Save extends Item
         $this->dataPersistor->set('navigation_item', $data);
 
         return $resultRedirect->setPath('*/*/edit', ['id' => $this->getRequest()->getParam('id')]);
+    }
+
+    private function processImage(array $data, string $key): ?string
+    {
+        $value = $data[$key] ?? null;
+        if (!$value) {
+            return null;
+        }
+        if (!is_array($value)) {
+            return null;
+        }
+        $imageName = $value['0']['name'] ?? null;
+        if (!$imageName) {
+            return null;
+        }
+        if ($imageName && !isset($value[0]['tmp_name'])) {
+            return $imageName;
+        }
+
+        return $this->imageUploader->getBasePath()
+            . '/' . $this->imageUploader->moveFileFromTmp($imageName);
     }
 }

@@ -16,6 +16,7 @@ use Magento\Framework\GraphQl\Exception\GraphQlNoSuchEntityException;
 use Magento\Framework\GraphQl\Query\ResolverInterface;
 use Magento\Framework\GraphQl\Schema\Type\ResolveInfo;
 use Mygento\Navigation\Api\MenuRepositoryInterface;
+use Mygento\Navigation\Model\FileInfo;
 use Mygento\Navigation\Model\ResourceModel\Item;
 
 class NavigationMenu implements ResolverInterface
@@ -25,6 +26,7 @@ class NavigationMenu implements ResolverInterface
     public function __construct(
         private MenuRepositoryInterface $menuRepository,
         private Item $itemResource,
+        private FileInfo $fileInfo,
         array $dataBuilders = [],
     ) {
         $this->dataBuilders = $this->prepareDataBuilders($dataBuilders);
@@ -60,6 +62,7 @@ class NavigationMenu implements ResolverInterface
         $itemsByType = [];
         $itemsData = $this->itemResource->getItemsWithTargetEntityId((int) $menu->getId(), $storeId);
         foreach ($itemsData as $item) {
+            $item['image'] = $item['image'] ? $this->fileInfo->getMediaUrl($item['image']) : null;
             $targetEntityIds[$item['entity_type']][$item['target_entity_id']] = $item['target_entity_id'];
             $itemsByType[$item['entity_type']][] = $item;
         }

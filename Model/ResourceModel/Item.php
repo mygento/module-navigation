@@ -102,6 +102,7 @@ class Item extends AbstractDb
                     'entity_type',
                     'name',
                     'sort_order',
+                    'image',
                     //todo check and apply changes after implementation main logic for saving entities
                     // is based on the assumption that entity_slug contains json like {"target_entity_id": "2"}
                     'target_entity_id' => new \Zend_Db_Expr(

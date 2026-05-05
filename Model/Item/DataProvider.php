@@ -11,6 +11,7 @@ namespace Mygento\Navigation\Model\Item;
 use Magento\Framework\App\Request\DataPersistorInterface;
 use Magento\Ui\DataProvider\Modifier\PoolInterface;
 use Magento\Ui\DataProvider\ModifierPoolDataProvider;
+use Mygento\Navigation\Model\FileInfo;
 use Mygento\Navigation\Model\ResourceModel\Item\Collection;
 use Mygento\Navigation\Model\ResourceModel\Item\CollectionFactory;
 
@@ -19,12 +20,12 @@ class DataProvider extends ModifierPoolDataProvider
     /** @var Collection */
     protected $collection;
 
-    private DataPersistorInterface $dataPersistor;
     private array $loadedData = [];
 
     public function __construct(
+        private FileInfo $fileInfo,
+        private DataPersistorInterface $dataPersistor,
         CollectionFactory $collectionFactory,
-        DataPersistorInterface $dataPersistor,
         string $name,
         string $primaryFieldName,
         string $requestFieldName,
@@ -35,7 +36,6 @@ class DataProvider extends ModifierPoolDataProvider
         parent::__construct($name, $primaryFieldName, $requestFieldName, $meta, $data, $pool);
 
         $this->collection = $collectionFactory->create();
-        $this->dataPersistor = $dataPersistor;
     }
 
     public function getData(): array
@@ -45,7 +45,9 @@ class DataProvider extends ModifierPoolDataProvider
         }
         $items = $this->collection->getItems();
         foreach ($items as $model) {
-            $this->loadedData[$model->getId()] = $model->getData();
+            $data = $model->getData();
+            $data['image'] = $this->getImageData($data, 'image');
+            $this->loadedData[$model->getId()] = $data;
         }
         $data = $this->dataPersistor->get('navigation_item');
         if (!empty($data)) {
@@ -56,5 +58,29 @@ class DataProvider extends ModifierPoolDataProvider
         }
 
         return $this->loadedData;
+    }
+
+    private function getImageData(array $data, string $key): ?array
+    {
+        $imageFileName = $data[$key];
+        if (!$imageFileName) {
+            return null;
+        }
+        $result = null;
+
+        if ($this->fileInfo->isExist($imageFileName)) {
+            $stat = $this->fileInfo->getStat($imageFileName);
+            $mime = $this->fileInfo->getMimeType($imageFileName);
+            $result = [
+                [
+                    'name' => $imageFileName,
+                    'url' => $this->fileInfo->getUrl($imageFileName),
+                    'size' => $stat['size'],
+                    'type' => $mime,
+                ],
+            ];
+        }
+
+        return $result;
     }
 }
