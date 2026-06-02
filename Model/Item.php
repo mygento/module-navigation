@@ -98,19 +98,19 @@ class Item extends AbstractModel implements ItemInterface
     }
 
     /**
-     * Get entity slug
+     * Get entity identifier
      */
-    public function getEntitySlug(): ?string
+    public function getEntityIdentifier(): ?string
     {
-        return $this->getData(self::ENTITY_SLUG);
+        return $this->getData(self::ENTITY_IDENTIFIER);
     }
 
     /**
-     * Set entity slug
+     * Set entity identifier
      */
-    public function setEntitySlug(?string $entitySlug): self
+    public function setEntityIdentifier(?string $entityIdentifier): self
     {
-        return $this->setData(self::ENTITY_SLUG, $entitySlug);
+        return $this->setData(self::ENTITY_IDENTIFIER, $entityIdentifier);
     }
 
     /**

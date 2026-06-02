@@ -87,6 +87,12 @@
             </settings>
         </column>
         <selectionsColumn name="ids" component="Mygento_Navigation/js/grid/single-select">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="labelField" xsi:type="string">title</item>
+                    <item name="labelTarget" xsi:type="string">navigation_item_edit.navigation_item_edit.general.entity_label</item>
+                </item>
+            </argument>
             <settings>
                 <indexField>block_id</indexField>
             </settings>

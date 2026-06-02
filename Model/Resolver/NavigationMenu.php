@@ -16,6 +16,7 @@ use Magento\Framework\GraphQl\Exception\GraphQlNoSuchEntityException;
 use Magento\Framework\GraphQl\Query\ResolverInterface;
 use Magento\Framework\GraphQl\Schema\Type\ResolveInfo;
 use Mygento\Navigation\Api\MenuRepositoryInterface;
+use Mygento\Navigation\Model\Builder\DataBuilderInterface;
 use Mygento\Navigation\Model\FileInfo;
 use Mygento\Navigation\Model\ResourceModel\Item;
 
@@ -63,10 +64,10 @@ class NavigationMenu implements ResolverInterface
         $itemsData = $this->itemResource->getItemsWithTargetEntityId((int) $menu->getId(), $storeId);
         foreach ($itemsData as $item) {
             $item['image'] = $item['image'] ? $this->fileInfo->getMediaUrl($item['image']) : null;
-            $targetEntityIds[$item['entity_type']][$item['target_entity_id']] = $item['target_entity_id'];
+            $targetEntityIds[$item['entity_type']][$item['entity_identifier']] = $item['entity_identifier'];
             $itemsByType[$item['entity_type']][] = $item;
         }
-        $preparedItems = $this->prepareItems($itemsByType, $targetEntityIds);
+        $preparedItems = $this->prepareItems($itemsByType, $targetEntityIds, $storeId);
 
         return [
             'code' => $code,
@@ -74,14 +75,14 @@ class NavigationMenu implements ResolverInterface
         ];
     }
 
-    private function prepareItems(array $itemsByType, array $targetEntityIds): array
+    private function prepareItems(array $itemsByType, array $targetEntityIds, int $storeId): array
     {
         $preparedItems = [];
         foreach ($itemsByType as $type => $items) {
             $dataBuilders = $this->dataBuilders[$type] ?? [];
             foreach ($dataBuilders as $dataBuilder) {
-                if ($dataBuilder && method_exists($dataBuilder, 'addData')) {
-                    $items = $dataBuilder->addData($items, $targetEntityIds[$type]);
+                if ($dataBuilder instanceof DataBuilderInterface) {
+                    $items = $dataBuilder->addData($items, $targetEntityIds[$type], $storeId);
                 }
             }
             $preparedItems = array_merge($preparedItems, $items);

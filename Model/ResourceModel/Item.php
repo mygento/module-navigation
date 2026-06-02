@@ -103,11 +103,7 @@ class Item extends AbstractDb
                     'name',
                     'sort_order',
                     'image',
-                    //todo check and apply changes after implementation main logic for saving entities
-                    // is based on the assumption that entity_slug contains json like {"target_entity_id": "2"}
-                    'target_entity_id' => new \Zend_Db_Expr(
-                        "JSON_UNQUOTE(JSON_EXTRACT(entity_slug, '$.target_entity_id'))",
-                    ),
+                    'entity_identifier',
                 ],
             )
             ->joinInner(

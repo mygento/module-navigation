@@ -37,4 +37,16 @@
             <argument name="imageUploader" xsi:type="object">Mygento\Navigation\Model\ImageUploader</argument>
         </arguments>
     </type>
+    <virtualType name="Mygento\Navigation\Ui\DataProvider\Product\ProductSelectDataProvider" type="Magento\Catalog\Ui\DataProvider\Product\ProductDataProvider">
+        <arguments>
+            <argument name="collectionFactory" xsi:type="object">Magento\Catalog\Ui\DataProvider\Product\ProductCollectionFactory</argument>
+            <argument name="addFieldStrategies" xsi:type="array">
+                <item name="websites" xsi:type="object">Magento\Catalog\Ui\DataProvider\Product\AddWebsitesFieldToCollection</item>
+            </argument>
+            <argument name="addFilterStrategies" xsi:type="array">
+                <item name="store_id" xsi:type="object">Magento\Catalog\Ui\DataProvider\Product\AddStoreFieldToCollection</item>
+            </argument>
+            <argument name="modifiersPool" xsi:type="object">Magento\Ui\DataProvider\Modifier\Pool</argument>
+        </arguments>
+    </virtualType>
 </config>

@@ -11,6 +11,7 @@ namespace Mygento\Navigation\Model\Item;
 use Magento\Framework\App\Request\DataPersistorInterface;
 use Magento\Ui\DataProvider\Modifier\PoolInterface;
 use Magento\Ui\DataProvider\ModifierPoolDataProvider;
+use Mygento\Navigation\Model\EntityLabelResolver;
 use Mygento\Navigation\Model\FileInfo;
 use Mygento\Navigation\Model\ResourceModel\Item\Collection;
 use Mygento\Navigation\Model\ResourceModel\Item\CollectionFactory;
@@ -25,6 +26,7 @@ class DataProvider extends ModifierPoolDataProvider
     public function __construct(
         private FileInfo $fileInfo,
         private DataPersistorInterface $dataPersistor,
+        private EntityLabelResolver $labelResolver,
         CollectionFactory $collectionFactory,
         string $name,
         string $primaryFieldName,
@@ -47,6 +49,10 @@ class DataProvider extends ModifierPoolDataProvider
         foreach ($items as $model) {
             $data = $model->getData();
             $data['image'] = $this->getImageData($data, 'image');
+            $data['entity_label'] = $this->labelResolver->resolve(
+                $data['entity_type'],
+                $data['entity_identifier'],
+            );
             $this->loadedData[$model->getId()] = $data;
         }
         $data = $this->dataPersistor->get('navigation_item');

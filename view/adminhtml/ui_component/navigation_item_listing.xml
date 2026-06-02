@@ -165,14 +165,14 @@
                 <options class="Mygento\Navigation\Model\Source\EntityType"/>
             </settings>
         </column>
-        <column name="entity_slug">
+        <column name="entity_identifier">
             <settings>
                 <filter>text</filter>
                 <dataType>text</dataType>
                 <editor>
                     <editorType>text</editorType>
                 </editor>
-                <label translate="true">Entity Slug</label>
+                <label translate="true">Entity Identifier</label>
             </settings>
         </column>
         <column name="sort_order">
