@@ -1,8 +1,17 @@
-type NavigationItem @doc(description: "Item") {
-    menu: Int @doc(description: "Menu ID")
-    is_active: Boolean! @doc(description: "Is_active")
-    name: String! @doc(description: "Name")
-    entity_type: String! @doc(description: "Link Type")
-    entity_slug: String @doc(description: "Link Identifier")
-    sort_order: Int! @doc(description: "Link Sort Order")
+type NavigationMenuItem @doc(description: "Item") {
+    sort_order: Int! @doc(description: "Item Sort Order")
+    name: String! @doc(description: "Item name")
+    link: String @doc(description: "Link")
+    image: String @doc(description: "Item image")
+}
+
+type Query {
+    navigationMenu(
+        code: String!,
+    ): NavigationMenu @resolver(class: "Mygento\\Navigation\\Model\\Resolver\\NavigationMenu")
+}
+
+type NavigationMenu {
+    code: String!
+    items: [NavigationMenuItem!] @doc(description: "List of items in menu")
 }

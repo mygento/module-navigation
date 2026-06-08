@@ -11,4 +11,42 @@
             </argument>
         </arguments>
     </type>
+    <virtualType name="Mygento\Navigation\Model\ImageUploader" type="Mygento\Base\Model\ImageUploader">
+        <arguments>
+            <argument name="baseTmpPath" xsi:type="string">mygentonav/tmp/item</argument>
+            <argument name="basePath" xsi:type="string">mygentonav/item</argument>
+            <argument name="allowedExtensions" xsi:type="array">
+                <item name="jpg" xsi:type="string">jpg</item>
+                <item name="jpeg" xsi:type="string">jpeg</item>
+                <item name="png" xsi:type="string">png</item>
+            </argument>
+            <argument name="allowedMimeTypes" xsi:type="array">
+                <item name="jpg" xsi:type="string">image/jpg</item>
+                <item name="jpeg" xsi:type="string">image/jpeg</item>
+                <item name="png" xsi:type="string">image/png</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="Mygento\Navigation\Controller\Adminhtml\Item\Save">
+        <arguments>
+            <argument name="imageUploader" xsi:type="object">Mygento\Navigation\Model\ImageUploader</argument>
+        </arguments>
+    </type>
+    <type name="Mygento\Navigation\Controller\Adminhtml\Item\Upload">
+        <arguments>
+            <argument name="imageUploader" xsi:type="object">Mygento\Navigation\Model\ImageUploader</argument>
+        </arguments>
+    </type>
+    <virtualType name="Mygento\Navigation\Ui\DataProvider\Product\ProductSelectDataProvider" type="Magento\Catalog\Ui\DataProvider\Product\ProductDataProvider">
+        <arguments>
+            <argument name="collectionFactory" xsi:type="object">Magento\Catalog\Ui\DataProvider\Product\ProductCollectionFactory</argument>
+            <argument name="addFieldStrategies" xsi:type="array">
+                <item name="websites" xsi:type="object">Magento\Catalog\Ui\DataProvider\Product\AddWebsitesFieldToCollection</item>
+            </argument>
+            <argument name="addFilterStrategies" xsi:type="array">
+                <item name="store_id" xsi:type="object">Magento\Catalog\Ui\DataProvider\Product\AddStoreFieldToCollection</item>
+            </argument>
+            <argument name="modifiersPool" xsi:type="object">Magento\Ui\DataProvider\Modifier\Pool</argument>
+        </arguments>
+    </virtualType>
 </config>

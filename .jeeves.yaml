@@ -42,7 +42,7 @@ Mygento:
             unsigned: true
             default: 0
             source: 'Mygento\Navigation\Model\Source\EntityType'
-          entity_slug:
+          entity_identifier:
             type: varchar
             nullable: true
             comment: 'Link Identifier'

@@ -15,7 +15,7 @@ interface ItemInterface
     public const IS_ACTIVE = 'is_active';
     public const NAME = 'name';
     public const ENTITY_TYPE = 'entity_type';
-    public const ENTITY_SLUG = 'entity_slug';
+    public const ENTITY_IDENTIFIER = 'entity_identifier';
     public const SORT_ORDER = 'sort_order';
     public const STORE_ID = 'store_id';
 
@@ -71,14 +71,14 @@ interface ItemInterface
     public function setEntityType(string $entityType): self;
 
     /**
-     * Get entity slug
+     * Get entity identifier
      */
-    public function getEntitySlug(): ?string;
+    public function getEntityIdentifier(): ?string;
 
     /**
-     * Set entity slug
+     * Set entity identifier
      */
-    public function setEntitySlug(?string $entitySlug): self;
+    public function setEntityIdentifier(?string $entityIdentifier): self;
 
     /**
      * Get sort order

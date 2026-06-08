@@ -25,6 +25,14 @@ interface MenuRepositoryInterface
     public function getById(int $entityId): Data\MenuInterface;
 
     /**
+     * Retrieve menu by code
+     *
+     * @throws \Magento\Framework\Exception\LocalizedException
+     * @return \Mygento\Navigation\Api\Data\MenuInterface
+     */
+    public function getByCode(string $code): Data\MenuInterface;
+
+    /**
      * Retrieve Menu entities matching the specified criteria
      * @throws \Magento\Framework\Exception\LocalizedException
      */

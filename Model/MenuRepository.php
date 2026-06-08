@@ -91,6 +91,19 @@ class MenuRepository implements MenuRepositoryInterface
         return $this->delete($this->getById($entityId));
     }
 
+    public function getByCode(string $code): MenuInterface
+    {
+        $entity = $this->entityFactory->create();
+        $this->resource->loadByCode($entity, $code);
+        if (!$entity->getId()) {
+            throw new NoSuchEntityException(
+                __('A menu with code "%1" does not exist', $code),
+            );
+        }
+
+        return $entity;
+    }
+
     public function getList(SearchCriteriaInterface $criteria): MenuSearchResultsInterface
     {
         /** @var \Mygento\Navigation\Model\ResourceModel\Menu\Collection $collection */
