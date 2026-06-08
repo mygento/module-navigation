@@ -23,6 +23,9 @@ class DataProvider extends ModifierPoolDataProvider
 
     private array $loadedData = [];
 
+    /**
+     * @SuppressWarnings(PHPMD.ExcessiveParameterList)
+     */
     public function __construct(
         private FileInfo $fileInfo,
         private DataPersistorInterface $dataPersistor,
