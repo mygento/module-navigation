@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
     <menu>
-        <add id="Mygento_Navigation::root" title="Navigation" translate="title" module="Mygento_Navigation" sortOrder="90" parent="Magento_Backend::stores" resource="Mygento_Navigation::root"/>
+        <add id="Mygento_Navigation::root" title="Navigation" translate="title" module="Mygento_Navigation" sortOrder="110" parent="Magento_Backend::content" resource="Mygento_Navigation::root"/>
         <add id="Mygento_Navigation::menu" title="Menu" translate="title" module="Mygento_Navigation" sortOrder="90" parent="Mygento_Navigation::root" action="navigation/menu" resource="Mygento_Navigation::menu"/>
         <add id="Mygento_Navigation::item" title="Item" translate="title" module="Mygento_Navigation" sortOrder="90" parent="Mygento_Navigation::root" action="navigation/item" resource="Mygento_Navigation::item"/>
     </menu>
