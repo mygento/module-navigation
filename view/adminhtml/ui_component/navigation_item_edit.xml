@@ -149,11 +149,16 @@
             </formElements>
         </field>
 
-        <field name="entity_type" formElement="select">
+        <field name="entity_type" formElement="select" component="Mygento_Navigation/js/form/element/entity-type">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="source" xsi:type="string">item</item>
                     <item name="default" xsi:type="string">catalog_category</item>
+                    <item name="clearTargets" xsi:type="array">
+                        <item name="0" xsi:type="string">navigation_item_edit.navigation_item_edit.general.entity_identifier</item>
+                        <item name="1" xsi:type="string">navigation_item_edit.navigation_item_edit.general.entity_label</item>
+                        <item name="2" xsi:type="string">navigation_item_edit.navigation_item_edit.general.catalog_category_entity</item>
+                    </item>
                 </item>
             </argument>
             <settings>
@@ -191,6 +196,10 @@
                                         <param name="0" xsi:type="boolean">false</param>
                                     </params>
                                 </action>
+                                <action name="4">
+                                    <target>navigation_item_edit.navigation_item_edit.general.entity_identifier</target>
+                                    <callback>hide</callback>
+                                </action>
                             </actions>
                         </rule>
                         <rule name="1">
@@ -220,6 +229,10 @@
                                     <params>
                                         <param name="0" xsi:type="boolean">false</param>
                                     </params>
+                                </action>
+                                <action name="4">
+                                    <target>navigation_item_edit.navigation_item_edit.general.entity_identifier</target>
+                                    <callback>show</callback>
                                 </action>
                             </actions>
                         </rule>
@@ -251,6 +264,10 @@
                                         <param name="0" xsi:type="boolean">false</param>
                                     </params>
                                 </action>
+                                <action name="4">
+                                    <target>navigation_item_edit.navigation_item_edit.general.entity_identifier</target>
+                                    <callback>hide</callback>
+                                </action>
                             </actions>
                         </rule>
                         <rule name="3">
@@ -280,6 +297,10 @@
                                     <params>
                                         <param name="0" xsi:type="boolean">false</param>
                                     </params>
+                                </action>
+                                <action name="4">
+                                    <target>navigation_item_edit.navigation_item_edit.general.entity_identifier</target>
+                                    <callback>hide</callback>
                                 </action>
                             </actions>
                         </rule>
@@ -311,6 +332,10 @@
                                         <param name="0" xsi:type="boolean">false</param>
                                     </params>
                                 </action>
+                                <action name="4">
+                                    <target>navigation_item_edit.navigation_item_edit.general.entity_identifier</target>
+                                    <callback>hide</callback>
+                                </action>
                             </actions>
                         </rule>
                         <rule name="5">
@@ -341,6 +366,10 @@
                                         <param name="0" xsi:type="boolean">true</param>
                                     </params>
                                 </action>
+                                <action name="4">
+                                    <target>navigation_item_edit.navigation_item_edit.general.entity_identifier</target>
+                                    <callback>hide</callback>
+                                </action>
                             </actions>
                         </rule>
                     </rules>
@@ -359,6 +388,31 @@
                 </select>
             </formElements>
         </field>
+        <field name="entity_identifier" formElement="input">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">item</item>
+                </item>
+            </argument>
+            <settings>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+                <dataType>text</dataType>
+                <label translate="true">Identifier</label>
+                <visible>false</visible>
+                <dataScope>entity_identifier</dataScope>
+            </settings>
+        </field>
+        <field name="entity_label" formElement="input" component="Mygento_Navigation/js/form/element/selected-label">
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Selected</label>
+                <visible>false</visible>
+                <disabled>true</disabled>
+                <dataScope>entity_label</dataScope>
+            </settings>
+        </field>
         <field name="catalog_category_entity" component="Magento_Catalog/js/components/new-category" sortOrder="30" formElement="select">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
@@ -372,7 +426,7 @@
             <settings>
                 <elementTmpl>ui/grid/filters/elements/ui-select</elementTmpl>
                 <label translate="true">Category</label>
-                <dataScope>category_ids</dataScope>
+                <dataScope>entity_identifier</dataScope>
                 <componentType>field</componentType>
                 <visible>false</visible>
                 <listens>
@@ -531,7 +585,7 @@
                     <loading>false</loading>
                     <selectionsProvider>${ $.ns }.${ $.ns }.columns.ids</selectionsProvider>
                     <autoRender>true</autoRender>
-                    <dataScope>page_id</dataScope>
+                    <dataScope>entity_identifier</dataScope>
                     <ns>navigation_page_select_grid</ns>
                     <dataLinks>
                         <imports>false</imports>
@@ -559,7 +613,7 @@
                     <loading>false</loading>
                     <selectionsProvider>${ $.ns }.${ $.ns }.columns.ids</selectionsProvider>
                     <autoRender>true</autoRender>
-                    <dataScope>block_id</dataScope>
+                    <dataScope>entity_identifier</dataScope>
                     <ns>navigation_block_select_grid</ns>
                     <dataLinks>
                         <imports>false</imports>
@@ -587,7 +641,7 @@
                     <loading>false</loading>
                     <selectionsProvider>${ $.ns }.${ $.ns }.columns.ids</selectionsProvider>
                     <autoRender>true</autoRender>
-                    <dataScope>entity_id</dataScope>
+                    <dataScope>entity_identifier</dataScope>
                     <ns>navigation_product_select_grid</ns>
                     <dataLinks>
                         <imports>false</imports>

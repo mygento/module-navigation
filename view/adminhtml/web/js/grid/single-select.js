@@ -1,7 +1,8 @@
 define([
     'Magento_Ui/js/grid/columns/multiselect',
-    'underscore'
-], function (Select, _) {
+    'underscore',
+    'uiRegistry'
+], function (Select, _, registry) {
     'use strict';
 
     return Select.extend({
@@ -9,6 +10,8 @@ define([
             headerTmpl: 'ui/grid/columns/text',
             bodyTmpl: 'Mygento_Navigation/grid/single-select',
             label: '',
+            labelField: '',
+            labelTarget: '',
             extendedSelections: [],
             lastSelected: null,
             listens: {
@@ -61,8 +64,32 @@ define([
         select: function (id) {
             this._super();
             this.lastSelected(id);
+            this.exportLabel(id);
 
             return this;
+        },
+
+        exportLabel: function (id) {
+            if (!this.labelField || !this.labelTarget) {
+                return;
+            }
+
+            const query = {
+                [this.indexField]: id
+            };
+            const row = _.findWhere(this.rows(), query);
+
+            if (!row) {
+                return;
+            }
+
+            const label = `[ID: ${id}] ${row[this.labelField]}`;
+
+            registry.get(this.labelTarget, function (field) {
+                if (field) {
+                    field.value(label);
+                }
+            });
         },
 
         /** @inheritdoc */

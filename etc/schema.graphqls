@@ -1,6 +1,7 @@
 type NavigationMenuItem @doc(description: "Item") {
     sort_order: Int! @doc(description: "Item Sort Order")
     name: String! @doc(description: "Item name")
+    link: String @doc(description: "Link")
     image: String @doc(description: "Item image")
 }
 

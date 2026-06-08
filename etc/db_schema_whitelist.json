@@ -1,0 +1,26 @@
+{
+    "mygento_navigation_menu": {
+        "column": {
+            "entity_id": true,
+            "code": true
+        }
+    },
+    "mygento_navigation_item": {
+        "column": {
+            "entity_id": true,
+            "menu": true,
+            "is_active": true,
+            "name": true,
+            "entity_type": true,
+            "entity_slug": true,
+            "entity_identifier": true,
+            "sort_order": true
+        }
+    },
+    "mygento_navigation_item_store": {
+        "column": {
+            "entity_id": true,
+            "store_id": true
+        }
+    }
+}

@@ -67,6 +67,15 @@ class Save extends Item
         $entity->setData($data);
         $entity->setImage($this->processImage($data, 'image') ?? '');
 
+        if (empty($data['entity_identifier'])) {
+            $this->messageManager->addErrorMessage(
+                __('The Entity Identifier is required. Please assign an entity.')->render(),
+            );
+            $this->dataPersistor->set('navigation_item', $data);
+
+            return $resultRedirect->setPath('*/*/edit', ['id' => $entity->getId()]);
+        }
+
         try {
             $this->repository->save($entity);
             $this->messageManager->addSuccessMessage(
