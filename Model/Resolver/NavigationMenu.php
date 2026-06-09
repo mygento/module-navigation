@@ -88,6 +88,10 @@ class NavigationMenu implements ResolverInterface
             $preparedItems = array_merge($preparedItems, $items);
         }
 
+        usort($preparedItems, function ($a, $b) {
+            return ($a['sort_order'] ?? 0) <=> ($b['sort_order'] ?? 0);
+        });
+
         return $preparedItems;
     }
 
