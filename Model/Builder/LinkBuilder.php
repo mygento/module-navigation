@@ -11,7 +11,6 @@ declare(strict_types=1);
 namespace Mygento\Navigation\Model\Builder;
 
 use Magento\Framework\App\ResourceConnection;
-use Magento\Framework\UrlInterface;
 
 class LinkBuilder implements DataBuilderInterface
 {
@@ -19,7 +18,6 @@ class LinkBuilder implements DataBuilderInterface
 
     public function __construct(
         private ResourceConnection $resourceConnection,
-        private UrlInterface $urlBuilder,
         private string $urlRewriteEntityType,
         private string $targetPathPattern,
     ) {}
@@ -29,8 +27,7 @@ class LinkBuilder implements DataBuilderInterface
         $requestPaths = $this->getRequestPaths($entityIds, $storeId);
         foreach ($items as &$item) {
             $entityId = (int) ($item['entity_identifier'] ?? 0);
-            $path = $requestPaths[$entityId] ?? sprintf($this->targetPathPattern, $entityId);
-            $item['link'] = $this->urlBuilder->getDirectUrl($path, ['_scope' => $storeId]);
+            $item['link'] = $requestPaths[$entityId] ?? sprintf($this->targetPathPattern, $entityId);
         }
         unset($item);
 
