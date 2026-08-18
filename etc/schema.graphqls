@@ -1,5 +1,6 @@
 type NavigationMenuItem @doc(description: "Item") {
     entity_identifier: String @doc(description: "Target Entity ID")
+    entity_type: String! @doc(description: "Entity Type")
     sort_order: Int! @doc(description: "Item Sort Order")
     name: String! @doc(description: "Item name")
     link: String @doc(description: "Link")
