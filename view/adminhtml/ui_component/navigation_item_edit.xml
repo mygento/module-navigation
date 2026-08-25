@@ -41,7 +41,7 @@
         <settings>
             <label></label>
         </settings>
-        <field name="entity_id" formElement="input">
+        <field sortOrder="10" name="entity_id" formElement="input">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="source" xsi:type="string">item</item>
@@ -54,7 +54,7 @@
                 <dataScope>entity_id</dataScope>
             </settings>
         </field>
-        <field name="menu" formElement="select">
+        <field sortOrder="20" name="menu" formElement="select">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="source" xsi:type="string">item</item>
@@ -79,7 +79,7 @@
                 </select>
             </formElements>
         </field>
-        <field name="is_active" formElement="checkbox">
+        <field sortOrder="30" name="is_active" formElement="checkbox">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="source" xsi:type="string">item</item>
@@ -103,7 +103,7 @@
                 </checkbox>
             </formElements>
         </field>
-        <field name="name" formElement="input">
+        <field sortOrder="40" name="name" formElement="input">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="source" xsi:type="string">item</item>
@@ -119,7 +119,7 @@
                 </validation>
             </settings>
         </field>
-        <field name="image" formElement="imageUploader">
+        <field sortOrder="50" name="image" formElement="imageUploader">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="source" xsi:type="string">item</item>
@@ -148,8 +148,7 @@
                 </imageUploader>
             </formElements>
         </field>
-
-        <field name="entity_type" formElement="select" component="Mygento_Navigation/js/form/element/entity-type">
+        <field sortOrder="60" name="entity_type" formElement="select" component="Mygento_Navigation/js/form/element/entity-type">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="source" xsi:type="string">item</item>
@@ -388,7 +387,7 @@
                 </select>
             </formElements>
         </field>
-        <field name="entity_identifier" formElement="input">
+        <field sortOrder="70" name="entity_identifier" formElement="input">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="source" xsi:type="string">item</item>
@@ -404,7 +403,7 @@
                 <dataScope>entity_identifier</dataScope>
             </settings>
         </field>
-        <field name="entity_label" formElement="input" component="Mygento_Navigation/js/form/element/selected-label">
+        <field sortOrder="80" name="entity_label" formElement="input" component="Mygento_Navigation/js/form/element/selected-label">
             <settings>
                 <dataType>text</dataType>
                 <label translate="true">Selected</label>
@@ -413,7 +412,7 @@
                 <dataScope>entity_label</dataScope>
             </settings>
         </field>
-        <field name="catalog_category_entity" component="Magento_Catalog/js/components/new-category" sortOrder="30" formElement="select">
+        <field sortOrder="90" name="catalog_category_entity" component="Magento_Catalog/js/components/new-category" formElement="select">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="filterOptions" xsi:type="boolean">true</item>
@@ -441,7 +440,7 @@
                 </select>
             </formElements>
         </field>
-        <container name="catalog_product_entity_container" component="Magento_Ui/js/form/components/group" sortOrder="10">
+        <container name="catalog_product_entity_container" component="Magento_Ui/js/form/components/group" sortOrder="65">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="formElement" xsi:type="string">container</item>
@@ -470,7 +469,7 @@
                 </argument>
             </button>
         </container>
-        <container name="assign_cms_page_container" component="Magento_Ui/js/form/components/group" sortOrder="10">
+        <container name="assign_cms_page_container" component="Magento_Ui/js/form/components/group" sortOrder="65">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="formElement" xsi:type="string">container</item>
@@ -499,7 +498,7 @@
                 </argument>
             </button>
         </container>
-        <container name="assign_cms_block_container" component="Magento_Ui/js/form/components/group" sortOrder="10">
+        <container name="assign_cms_block_container" component="Magento_Ui/js/form/components/group" sortOrder="65">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="formElement" xsi:type="string">container</item>
@@ -528,7 +527,7 @@
                 </argument>
             </button>
         </container>
-        <field name="sort_order" formElement="input">
+        <field sortOrder="100" name="sort_order" formElement="input">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="source" xsi:type="string">item</item>
@@ -546,7 +545,7 @@
                 </validation>
             </settings>
         </field>
-        <field name="store_id" formElement="multiselect" class="Magento\Store\Ui\Component\Form\Field\StoreView">
+        <field sortOrder="110" name="store_id" formElement="multiselect" class="Magento\Store\Ui\Component\Form\Field\StoreView">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="source" xsi:type="string">item</item>
