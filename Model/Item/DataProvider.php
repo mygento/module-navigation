@@ -11,7 +11,8 @@ namespace Mygento\Navigation\Model\Item;
 use Magento\Framework\App\Request\DataPersistorInterface;
 use Magento\Ui\DataProvider\Modifier\PoolInterface;
 use Magento\Ui\DataProvider\ModifierPoolDataProvider;
-use Mygento\Navigation\Model\EntityLabelResolver;
+use Mygento\Navigation\Api\Data\ItemInterface;
+use Mygento\Navigation\Model\EntityResolverPool;
 use Mygento\Navigation\Model\FileInfo;
 use Mygento\Navigation\Model\ResourceModel\Item\Collection;
 use Mygento\Navigation\Model\ResourceModel\Item\CollectionFactory;
@@ -27,9 +28,9 @@ class DataProvider extends ModifierPoolDataProvider
      * @SuppressWarnings(PHPMD.ExcessiveParameterList)
      */
     public function __construct(
+        private EntityResolverPool $resolver,
         private FileInfo $fileInfo,
         private DataPersistorInterface $dataPersistor,
-        private EntityLabelResolver $labelResolver,
         CollectionFactory $collectionFactory,
         string $name,
         string $primaryFieldName,
@@ -43,21 +44,52 @@ class DataProvider extends ModifierPoolDataProvider
         $this->collection = $collectionFactory->create();
     }
 
+    /**
+     * @SuppressWarnings(PHPMD.CyclomaticComplexity)
+     */
     public function getData(): array
     {
         if (!empty($this->loadedData)) {
             return $this->loadedData;
         }
         $items = $this->collection->getItems();
+
+        $idsByType = [];
+        /** @var ItemInterface $model */
+        foreach ($items as $model) {
+            $type = $model->getEntityType() ?? null;
+            $identifier = $model->getEntityIdentifier() ?? null;
+            if (!$type || !$identifier) {
+                continue;
+            }
+            $idsByType[$type][] = (string) $identifier;
+        }
+
+        $resolved = [];
+        foreach ($idsByType as $type => $ids) {
+            $resolver = $this->resolver->get($type);
+
+            if (!$resolver) {
+                continue;
+            }
+
+            $resolved[$type] = $resolver->resolve(
+                array_unique($ids),
+            );
+        }
+        /** @var ItemInterface $model */
         foreach ($items as $model) {
             $data = $model->getData();
             $data['image'] = $this->getImageData($data, 'image');
-            $data['entity_label'] = $this->labelResolver->resolve(
-                $data['entity_type'],
-                $data['entity_identifier'],
-            );
+            $type = $model->getEntityType() ?? null;
+            $identifier = $model->getEntityIdentifier() ?? null;
+            if ($type && $identifier) {
+                $data['entity_label'] = $resolved[$type][$identifier];
+            }
+
             $this->loadedData[$model->getId()] = $data;
         }
+
         $data = $this->dataPersistor->get('navigation_item');
         if (!empty($data)) {
             $model = $this->collection->getNewEmptyItem();

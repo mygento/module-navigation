@@ -155,24 +155,14 @@
             <settings>
                 <filter>select</filter>
                 <dataType>select</dataType>
-                <editor>
-                    <editorType>select</editorType>
-                    <validation>
-                        <rule name="required-entry" xsi:type="boolean">true</rule>
-                    </validation>
-                </editor>
                 <label translate="true">Entity Type</label>
                 <options class="Mygento\Navigation\Model\Source\EntityType"/>
             </settings>
         </column>
-        <column name="entity_identifier">
+        <column name="entity_name" class="Mygento\Navigation\Ui\Component\Listing\Columns\Name">
             <settings>
-                <filter>text</filter>
-                <dataType>text</dataType>
-                <editor>
-                    <editorType>text</editorType>
-                </editor>
-                <label translate="true">Entity Identifier</label>
+                <sortable>false</sortable>
+                <label translate="true">Entity Name</label>
             </settings>
         </column>
         <column name="image" component="Magento_Ui/js/grid/columns/thumbnail" class="Mygento\Navigation\Ui\Component\Listing\Columns\Image">

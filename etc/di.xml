@@ -153,4 +153,22 @@
             </argument>
         </arguments>
     </type>
+    <type name="Mygento\Navigation\Model\EntityResolverPool">
+        <arguments>
+            <argument name="resolvers" xsi:type="array">
+                <item name="catalog_category" xsi:type="object">
+                    Mygento\Navigation\Model\EntityResolver\Category
+                </item>
+                <item name="catalog_product" xsi:type="object">
+                     Mygento\Navigation\Model\EntityResolver\Product
+                </item>
+                <item name="cms_page" xsi:type="object">
+                    Mygento\Navigation\Model\EntityResolver\Page
+                </item>
+                <item name="cms_block" xsi:type="object">
+                     Mygento\Navigation\Model\EntityResolver\Block
+                </item>
+            </argument>
+        </arguments>
+    </type>
 </config>

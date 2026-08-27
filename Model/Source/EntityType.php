@@ -9,16 +9,19 @@
 namespace Mygento\Navigation\Model\Source;
 
 use Magento\Framework\Data\OptionSourceInterface;
+use Mygento\Navigation\Model\EntityResolverPool;
 
 class EntityType implements OptionSourceInterface
 {
-    public function __construct(private array $types = []) {}
+    public function __construct(private EntityResolverPool $pool) {}
 
     public function toOptionArray(): array
     {
-        $result = [];
-        foreach ($this->types as $code => $type) {
-            $result[] = ['value' => $code, 'label' => $type];
+        $result = [
+            ['value' => 'custom', 'label' => 'custom'],
+        ];
+        foreach ($this->pool->getAllTypes() as $code) {
+            $result[] = ['value' => $code, 'label' => $code];
         }
 
         return $result;
