@@ -11,7 +11,7 @@
             </argument>
         </arguments>
     </type>
-    <virtualType name="Mygento\Navigation\Model\ImageUploader" type="Mygento\Base\Model\ImageUploader">
+    <virtualType name="Mygento\Navigation\Model\ImageUploader" type="Mygento\ImageCommon\Model\Uploader">
         <arguments>
             <argument name="baseTmpPath" xsi:type="string">mygentonav/tmp/item</argument>
             <argument name="basePath" xsi:type="string">mygentonav/item</argument>

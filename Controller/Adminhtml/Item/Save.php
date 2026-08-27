@@ -14,7 +14,7 @@ use Magento\Framework\Controller\ResultInterface;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\Registry;
-use Mygento\Base\Model\ImageUploader;
+use Mygento\ImageCommon\Model\Uploader;
 use Mygento\Navigation\Api\Data\ItemInterfaceFactory;
 use Mygento\Navigation\Api\ItemRepositoryInterface;
 use Mygento\Navigation\Controller\Adminhtml\Item;
@@ -24,7 +24,7 @@ class Save extends Item
     public function __construct(
         private readonly DataPersistorInterface $dataPersistor,
         private readonly ItemInterfaceFactory $entityFactory,
-        private ImageUploader $imageUploader,
+        private Uploader $imageUploader,
         ItemRepositoryInterface $repository,
         Registry $coreRegistry,
         Context $context,
@@ -117,7 +117,9 @@ class Save extends Item
             return $imageName;
         }
 
-        return $this->imageUploader->getBasePath()
-            . '/' . $this->imageUploader->moveFileFromTmp($imageName);
+        return substr(
+            $this->imageUploader->moveFileFromTmp($imageName),
+            strlen($this->imageUploader->getBasePath()) + 1,
+        );
     }
 }

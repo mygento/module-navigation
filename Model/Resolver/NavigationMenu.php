@@ -35,12 +35,7 @@ class NavigationMenu implements ResolverInterface
 
     /**
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
-     * @param Field $field
      * @param $context
-     * @param ResolveInfo $info
-     * @param array|null $value
-     * @param array|null $args
-     *
      * @throws GraphQlNoSuchEntityException
      * @return array
      */
