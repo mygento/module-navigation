@@ -16,6 +16,7 @@ interface ItemInterface
     public const NAME = 'name';
     public const ENTITY_TYPE = 'entity_type';
     public const ENTITY_IDENTIFIER = 'entity_identifier';
+    public const IMAGE = 'image';
     public const SORT_ORDER = 'sort_order';
     public const STORE_ID = 'store_id';
 
@@ -79,6 +80,18 @@ interface ItemInterface
      * Set entity identifier
      */
     public function setEntityIdentifier(?string $entityIdentifier): self;
+
+    /**
+     * Get image
+     * @return string|null
+     */
+    public function getImage(): ?string;
+
+    /**
+     * Set image
+     * @return $this
+     */
+    public function setImage(?string $image): self;
 
     /**
      * Get sort order

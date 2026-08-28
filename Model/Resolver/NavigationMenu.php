@@ -18,13 +18,15 @@ use Magento\Framework\GraphQl\Schema\Type\ResolveInfo;
 use Mygento\Navigation\Api\Data\ItemInterface;
 use Mygento\Navigation\Api\MenuRepositoryInterface;
 use Mygento\Navigation\Model\EntityResolverPool;
+use Mygento\Navigation\Model\FileInfo;
 use Mygento\Navigation\Model\ResourceModel\Item\CollectionFactory;
 
 class NavigationMenu implements ResolverInterface
 {
     public function __construct(
         private MenuRepositoryInterface $repo,
-        private EntityResolverPool $resolver,
+        private EntityResolverPool $poolResolver,
+        private FileInfo $fileInfo,
         private CollectionFactory $factory,
     ) {}
 
@@ -33,6 +35,7 @@ class NavigationMenu implements ResolverInterface
      * @param $context
      * @throws GraphQlNoSuchEntityException
      * @return array
+     * @SuppressWarnings(PHPMD.CyclomaticComplexity)
      */
     public function resolve(
         Field $field,
@@ -47,30 +50,67 @@ class NavigationMenu implements ResolverInterface
 
         try {
             $menu = $this->repo->getByCode($code);
-            $collection = $this->factory->create();
-            $collection->addFieldToFilter('menu', $menu->getId());
-            $collection->addFieldToFilter('is_active', 1);
-            $collection->addFilter('store_id', $context->getExtensionAttributes()->getStore()->getId());
-            $collection->setOrder('sort_order', 'ASC');
-
-            /** @var ItemInterface $item */
-            foreach ($collection as $item) {
-                $items[] = [
-                    'entity_identifier' => $item->getEntityIdentifier(),
-                    'entity_type' => $item->getEntityType(),
-                    'sort_order' => (int) $item->getSortOrder(),
-                    'name' => $item->getName(),
-                    'link' => '',
-                    'image' => '',
-                ];
-            }
         } catch (LocalizedException) {
-            throw new GraphQlNoSuchEntityException(__('Navigation1 menu2 "%1" not found or disabled', $code));
+            throw new GraphQlNoSuchEntityException(__('Navigation menu "%1" not found or disabled', $code));
+        }
+        $storeId = (int) $context->getExtensionAttributes()->getStore()->getId();
+        $collection = $this->factory->create();
+        $collection->addFieldToFilter('menu', $menu->getId());
+        $collection->addFieldToFilter('is_active', 1);
+        $collection->addFilter('store_id', $storeId);
+        $collection->setOrder('sort_order', 'ASC');
+
+        $idsByType = [];
+        /** @var ItemInterface $item */
+        foreach ($collection as $item) {
+            $type = $item->getEntityType();
+            $identifier = $item->getEntityIdentifier() ?? null;
+            if (!$type || !$identifier) {
+                continue;
+            }
+            $idsByType[$type][] = (string) $identifier;
+        }
+
+        $resolved = [];
+        foreach ($idsByType as $type => $ids) {
+            $resolver = $this->poolResolver->get($type);
+
+            if (!$resolver) {
+                continue;
+            }
+
+            $resolved[$type] = $resolver->resolveUrl(
+                array_unique($ids),
+                $storeId,
+            );
+        }
+
+        /** @var ItemInterface $item */
+        foreach ($collection as $item) {
+            $items[] = $this->getEntity($item, $resolved);
         }
 
         return [
             'code' => $code,
             'items' => $items,
         ];
+    }
+
+    private function getEntity(ItemInterface $item, array $resolved = []): array
+    {
+        $entity = [
+            'entity_identifier' => $item->getEntityIdentifier(),
+            'entity_type' => $item->getEntityType(),
+            'sort_order' => (int) $item->getSortOrder(),
+            'name' => $item->getName(),
+            'link' => $item->getEntityIdentifier(),
+            'image' => $item->getImage() ? $this->fileInfo->getMediaUrl('mygentonav/item/' . $item->getImage()) : null,
+        ];
+        if ($item->getEntityIdentifier() && isset($resolved[$item->getEntityType()])) {
+            $link = $resolved[$item->getEntityType()][$item->getEntityIdentifier()] ?? null;
+            $entity['link'] =  $link !== null ? '/' . $link : null;
+        }
+
+        return $entity;
     }
 }
