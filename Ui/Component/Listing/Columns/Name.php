@@ -63,7 +63,7 @@ class Name extends Column
                 continue;
             }
 
-            $resolved[$type] = $resolver->resolve(
+            $resolved[$type] = $resolver->resolveName(
                 array_unique($ids),
             );
         }

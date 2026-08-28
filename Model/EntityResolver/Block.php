@@ -17,20 +17,17 @@ class Block implements EntityResolverInterface
         private CollectionFactory $factory,
     ) {}
 
-    public function resolve(array $ids): array
+    public function resolveName(array $ids): array
     {
         if (empty($ids)) {
             return [];
         }
 
         $collection = $this->factory->create();
-        $collection->setStoreId(0);
-
         $collection->addFieldToSelect([
             'block_id',
             'title',
         ]);
-
         $collection->addFieldToFilter(
             'block_id',
             ['in' => $ids],
@@ -40,12 +37,21 @@ class Block implements EntityResolverInterface
 
         foreach ($collection as $block) {
             $result[(string) $block->getId()] = sprintf(
-                '[Block ID: %d] %s',
+                '[Block ID: %s] %s',
                 $block->getId(),
                 $block->getTitle(),
             );
         }
 
         return $result;
+    }
+
+    /**
+     * @param string[] $ids
+     * @return array<string, string>
+     */
+    public function resolveUrl(array $ids): array
+    {
+        return [];
     }
 }

@@ -17,31 +17,38 @@ class Page implements EntityResolverInterface
         private CollectionFactory $factory,
     ) {}
 
-    public function resolve(array $ids): array
+    public function resolveName(array $ids): array
     {
         if (empty($ids)) {
             return [];
         }
-        $collection = $this->factory->create();
-        $collection->setStoreId(0);
 
+        $collection = $this->factory->create();
         $collection->addFieldToFilter(
             'page_id',
             ['in' => $ids],
         );
-
-        $collection->addFieldToSelect('title');
+        $collection->addFieldToSelect(['page_id', 'title']);
 
         $result = [];
 
         foreach ($collection as $page) {
             $result[(string) $page->getId()] = sprintf(
-                '[Page ID: %d] %s',
+                '[Page ID: %s] %s',
                 $page->getId(),
                 $page->getTitle(),
             );
         }
 
         return $result;
+    }
+
+    /**
+     * @param string[] $ids
+     * @return array<string, string>
+     */
+    public function resolveUrl(array $ids): array
+    {
+        return [];
     }
 }

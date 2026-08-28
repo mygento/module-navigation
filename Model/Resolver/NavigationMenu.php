@@ -15,23 +15,18 @@ use Magento\Framework\GraphQl\Config\Element\Field;
 use Magento\Framework\GraphQl\Exception\GraphQlNoSuchEntityException;
 use Magento\Framework\GraphQl\Query\ResolverInterface;
 use Magento\Framework\GraphQl\Schema\Type\ResolveInfo;
+use Mygento\Navigation\Api\Data\ItemInterface;
 use Mygento\Navigation\Api\MenuRepositoryInterface;
-use Mygento\Navigation\Model\Builder\DataBuilderInterface;
-use Mygento\Navigation\Model\FileInfo;
-use Mygento\Navigation\Model\ResourceModel\Item;
+use Mygento\Navigation\Model\EntityResolverPool;
+use Mygento\Navigation\Model\ResourceModel\Item\CollectionFactory;
 
 class NavigationMenu implements ResolverInterface
 {
-    private array $dataBuilders = [];
-
     public function __construct(
-        private MenuRepositoryInterface $menuRepository,
-        private Item $itemResource,
-        private FileInfo $fileInfo,
-        array $dataBuilders = [],
-    ) {
-        $this->dataBuilders = $this->prepareDataBuilders($dataBuilders);
-    }
+        private MenuRepositoryInterface $repo,
+        private EntityResolverPool $resolver,
+        private CollectionFactory $factory,
+    ) {}
 
     /**
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
@@ -48,70 +43,34 @@ class NavigationMenu implements ResolverInterface
     ) {
         $code = $args['code'] ?? null;
 
+        $items = [];
+
         try {
-            $menu = $this->menuRepository->getByCode($code);
+            $menu = $this->repo->getByCode($code);
+            $collection = $this->factory->create();
+            $collection->addFieldToFilter('menu', $menu->getId());
+            $collection->addFieldToFilter('is_active', 1);
+            $collection->addFilter('store_id', $context->getExtensionAttributes()->getStore()->getId());
+            $collection->setOrder('sort_order', 'ASC');
+
+            /** @var ItemInterface $item */
+            foreach ($collection as $item) {
+                $items[] = [
+                    'entity_identifier' => $item->getEntityIdentifier(),
+                    'entity_type' => $item->getEntityType(),
+                    'sort_order' => (int) $item->getSortOrder(),
+                    'name' => $item->getName(),
+                    'link' => '',
+                    'image' => '',
+                ];
+            }
         } catch (LocalizedException) {
-            throw new GraphQlNoSuchEntityException(__('Product menu "%1" not found or disabled', $code));
+            throw new GraphQlNoSuchEntityException(__('Navigation1 menu2 "%1" not found or disabled', $code));
         }
-        $storeId = (int) $context->getExtensionAttributes()->getStore()->getId();
-        $targetEntityIds = [];
-        $itemsByType = [];
-        $itemsData = $this->itemResource->getItemsWithTargetEntityId((int) $menu->getId(), $storeId);
-        foreach ($itemsData as $item) {
-            $item['image'] = $item['image'] ? $this->fileInfo->getMediaUrl($item['image']) : null;
-            $targetEntityIds[$item['entity_type']][$item['entity_identifier']] = $item['entity_identifier'];
-            $itemsByType[$item['entity_type']][] = $item;
-        }
-        $preparedItems = $this->prepareItems($itemsByType, $targetEntityIds, $storeId);
 
         return [
             'code' => $code,
-            'items' => $preparedItems,
+            'items' => $items,
         ];
-    }
-
-    private function prepareItems(array $itemsByType, array $targetEntityIds, int $storeId): array
-    {
-        $preparedItems = [];
-        foreach ($itemsByType as $type => $items) {
-            $dataBuilders = $this->dataBuilders[$type] ?? [];
-            foreach ($dataBuilders as $dataBuilder) {
-                if ($dataBuilder instanceof DataBuilderInterface) {
-                    $items = $dataBuilder->addData($items, $targetEntityIds[$type], $storeId);
-                }
-            }
-            $preparedItems = array_merge($preparedItems, $items);
-        }
-
-        usort($preparedItems, function ($a, $b) {
-            return ($a['sort_order'] ?? 0) <=> ($b['sort_order'] ?? 0);
-        });
-
-        return $preparedItems;
-    }
-
-    private function prepareDataBuilders(array $dataBuilders): array
-    {
-        $buildersByType = [];
-        foreach ($dataBuilders as $builderConfig) {
-            if (!isset($builderConfig['entity_type'], $builderConfig['class'], $builderConfig['sortOrder'])) {
-                continue;
-            }
-
-            $buildersByType[$builderConfig['entity_type']][] = [
-                'class' => $builderConfig['class'],
-                'sortOrder' => $builderConfig['sortOrder'],
-            ];
-        }
-
-        foreach ($buildersByType as $type => $builders) {
-            usort($builders, function ($a, $b) {
-                return $a['sortOrder'] <=> $b['sortOrder'];
-            });
-
-            $buildersByType[$type] = array_column($builders, 'class');
-        }
-
-        return $buildersByType;
     }
 }

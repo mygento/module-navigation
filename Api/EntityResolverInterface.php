@@ -14,5 +14,11 @@ interface EntityResolverInterface
      * @param string[] $ids
      * @return array<string, string>
      */
-    public function resolve(array $ids): array;
+    public function resolveName(array $ids): array;
+
+    /**
+     * @param string[] $ids
+     * @return array<string, string>
+     */
+    public function resolveUrl(array $ids): array;
 }

@@ -109,50 +109,7 @@
             <argument name="resourceModel" xsi:type="string">Mygento\Navigation\Model\ResourceModel\Item</argument>
         </arguments>
     </type>
-    <virtualType name="Mygento\Navigation\Model\Builder\Category" type="Mygento\Navigation\Model\Builder\LinkBuilder">
-        <arguments>
-            <argument name="urlRewriteEntityType" xsi:type="string">category</argument>
-            <argument name="targetPathPattern" xsi:type="string">catalog/category/view/id/%d</argument>
-        </arguments>
-    </virtualType>
-    <virtualType name="Mygento\Navigation\Model\Builder\Product" type="Mygento\Navigation\Model\Builder\LinkBuilder">
-        <arguments>
-            <argument name="urlRewriteEntityType" xsi:type="string">product</argument>
-            <argument name="targetPathPattern" xsi:type="string">catalog/product/view/id/%d</argument>
-        </arguments>
-    </virtualType>
-    <virtualType name="Mygento\Navigation\Model\Builder\CmsPage" type="Mygento\Navigation\Model\Builder\LinkBuilder">
-        <arguments>
-            <argument name="urlRewriteEntityType" xsi:type="string">cms-page</argument>
-            <argument name="targetPathPattern" xsi:type="string">cms/page/view/page_id/%d</argument>
-        </arguments>
-    </virtualType>
-    <type name="Mygento\Navigation\Model\Resolver\NavigationMenu">
-        <arguments>
-            <argument name="dataBuilders" xsi:type="array">
-                <item name="catalog_category" xsi:type="array">
-                    <item name="entity_type" xsi:type="string">catalog_category</item>
-                    <item name="class" xsi:type="object">Mygento\Navigation\Model\Builder\Category</item>
-                    <item name="sortOrder" xsi:type="number">10</item>
-                </item>
-                <item name="catalog_product" xsi:type="array">
-                    <item name="entity_type" xsi:type="string">catalog_product</item>
-                    <item name="class" xsi:type="object">Mygento\Navigation\Model\Builder\Product</item>
-                    <item name="sortOrder" xsi:type="number">20</item>
-                </item>
-                <item name="cms_page" xsi:type="array">
-                    <item name="entity_type" xsi:type="string">cms_page</item>
-                    <item name="class" xsi:type="object">Mygento\Navigation\Model\Builder\CmsPage</item>
-                    <item name="sortOrder" xsi:type="number">30</item>
-                </item>
-                <item name="custom" xsi:type="array">
-                    <item name="entity_type" xsi:type="string">custom</item>
-                    <item name="class" xsi:type="object">Mygento\Navigation\Model\Builder\CustomLink</item>
-                    <item name="sortOrder" xsi:type="number">40</item>
-                </item>
-            </argument>
-        </arguments>
-    </type>
+    <!-- POOL -->
     <type name="Mygento\Navigation\Model\EntityResolverPool">
         <arguments>
             <argument name="resolvers" xsi:type="array">

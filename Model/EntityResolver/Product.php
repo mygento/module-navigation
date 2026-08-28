@@ -21,7 +21,7 @@ class Product implements EntityResolverInterface
      * @param string[] $ids
      * @return array<string, string>
      */
-    public function resolve(array $ids): array
+    public function resolveName(array $ids): array
     {
         if (empty($ids)) {
             return [];
@@ -36,12 +36,21 @@ class Product implements EntityResolverInterface
 
         foreach ($collection as $product) {
             $result[(string) $product->getId()] = sprintf(
-                '[Product SKU: %d] %s',
+                '[Product SKU: %s] %s',
                 $product->getSku(),
                 $product->getName(),
             );
         }
 
         return $result;
+    }
+
+    /**
+     * @param string[] $ids
+     * @return array<string, string>
+     */
+    public function resolveUrl(array $ids): array
+    {
+        return [];
     }
 }

@@ -21,7 +21,7 @@ class Category implements EntityResolverInterface
      * @param string[] $ids
      * @return array<string, string>
      */
-    public function resolve(array $ids): array
+    public function resolveName(array $ids): array
     {
         if (empty($ids)) {
             return [];
@@ -35,9 +35,22 @@ class Category implements EntityResolverInterface
         $result = [];
 
         foreach ($collection as $category) {
-            $result[(string) $category->getId()] = '[' . $category->getId() . '] ' . $category->getName();
+            $result[(string) $category->getId()] = sprintf(
+                '[Category ID: %s] %s',
+                $category->getId(),
+                $category->getName(),
+            );
         }
 
         return $result;
+    }
+
+    /**
+     * @param string[] $ids
+     * @return array<string, string>
+     */
+    public function resolveUrl(array $ids): array
+    {
+        return [];
     }
 }

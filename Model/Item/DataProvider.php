@@ -73,7 +73,7 @@ class DataProvider extends ModifierPoolDataProvider
                 continue;
             }
 
-            $resolved[$type] = $resolver->resolve(
+            $resolved[$type] = $resolver->resolveName(
                 array_unique($ids),
             );
         }
