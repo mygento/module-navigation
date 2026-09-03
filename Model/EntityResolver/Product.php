@@ -8,6 +8,9 @@
 
 namespace Mygento\Navigation\Model\EntityResolver;
 
+use Magento\Catalog\Api\Data\ProductInterface;
+use Magento\Catalog\Model\Product\Attribute\Source\Status;
+use Magento\Catalog\Model\ResourceModel\Product\Collection;
 use Magento\Catalog\Model\ResourceModel\Product\CollectionFactory;
 use Magento\Framework\App\ResourceConnection;
 use Mygento\Navigation\Api\EntityResolverInterface;
@@ -31,15 +34,13 @@ class Product implements EntityResolverInterface
             return [];
         }
 
-        $collection = $this->factory->create();
-        $collection->setStoreId(0);
-        $collection->addAttributeToSelect(['sku', 'name']);
-        $collection->addFieldToFilter('entity_id', ['in' => $ids]);
-
+        $collection = $this->getCollection($ids);
         $result = [];
 
+        /** @var ProductInterface $product */
         foreach ($collection as $product) {
-            $result[(string) $product->getId()] = sprintf(
+            $id = (string) $product->getId();
+            $result[$id] = sprintf(
                 '[Product SKU: %s] %s',
                 $product->getSku(),
                 $product->getName(),
@@ -51,9 +52,31 @@ class Product implements EntityResolverInterface
 
     /**
      * @param string[] $ids
+     * @return array<string, array{url: string|null, entity_identifier: string}>
+     */
+    public function resolveData(array $ids, int $storeId): array
+    {
+        $result = [];
+        $collection = $this->getCollection($ids);
+        $urls = $this->resolveUrl($ids, $storeId);
+        $collection->addAttributeToFilter('status', Status::STATUS_ENABLED);
+        /** @var ProductInterface $product */
+        foreach ($collection as $product) {
+            $id = (string) $product->getId();
+            $result[$id] = [
+                'url' => $urls[$id] ?? null,
+                'entity_identifier' => $product->getSku(),
+            ];
+        }
+
+        return $result;
+    }
+
+    /**
+     * @param string[] $ids
      * @return array<string, string>
      */
-    public function resolveUrl(array $ids, int $storeId): array
+    private function resolveUrl(array $ids, int $storeId): array
     {
         $connection = $this->resourceConnection->getConnection();
         $select = $connection->select()
@@ -70,5 +93,19 @@ class Product implements EntityResolverInterface
             ->order('ur.url_rewrite_id ASC');
 
         return $connection->fetchPairs($select);
+    }
+
+    /**
+     * @param string[] $ids
+     */
+    private function getCollection(array $ids): Collection
+    {
+        /** @var Collection $collection */
+        $collection = $this->factory->create();
+        $collection->setStoreId(0);
+        $collection->addAttributeToSelect([ProductInterface::SKU, ProductInterface::NAME]);
+        $collection->addFieldToFilter('entity_id', ['in' => $ids]);
+
+        return $collection;
     }
 }

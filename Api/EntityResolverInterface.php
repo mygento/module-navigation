@@ -18,7 +18,7 @@ interface EntityResolverInterface
 
     /**
      * @param string[] $ids
-     * @return array<string, string>
+     * @return array<string, array{url: string|null, entity_identifier: string}>
      */
-    public function resolveUrl(array $ids, int $storeId): array;
+    public function resolveData(array $ids, int $storeId): array;
 }

@@ -79,7 +79,7 @@ class NavigationMenu implements ResolverInterface
                 continue;
             }
 
-            $resolved[$type] = $resolver->resolveUrl(
+            $resolved[$type] = $resolver->resolveData(
                 array_unique($ids),
                 $storeId,
             );
@@ -107,8 +107,9 @@ class NavigationMenu implements ResolverInterface
             'image' => $item->getImage() ? $this->fileInfo->getMediaUrl('mygentonav/item/' . $item->getImage()) : null,
         ];
         if ($item->getEntityIdentifier() && isset($resolved[$item->getEntityType()])) {
-            $link = $resolved[$item->getEntityType()][$item->getEntityIdentifier()] ?? null;
+            $link = $resolved[$item->getEntityType()][$item->getEntityIdentifier()]['url'] ?? null;
             $entity['link'] =  $link !== null ? '/' . $link : null;
+            $entity['entity_identifier'] = $resolved[$item->getEntityType()][$item->getEntityIdentifier()]['entity_identifier'];
         }
 
         return $entity;

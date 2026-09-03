@@ -8,6 +8,8 @@
 
 namespace Mygento\Navigation\Model\EntityResolver;
 
+use Magento\Cms\Api\Data\BlockInterface;
+use Magento\Cms\Model\ResourceModel\Block\Collection;
 use Magento\Cms\Model\ResourceModel\Block\CollectionFactory;
 use Mygento\Navigation\Api\EntityResolverInterface;
 
@@ -17,24 +19,17 @@ class Block implements EntityResolverInterface
         private CollectionFactory $factory,
     ) {}
 
+    /**
+     * @param string[] $ids
+     */
     public function resolveName(array $ids): array
     {
         if (empty($ids)) {
             return [];
         }
 
-        $collection = $this->factory->create();
-        $collection->addFieldToSelect([
-            'block_id',
-            'title',
-        ]);
-        $collection->addFieldToFilter(
-            'block_id',
-            ['in' => $ids],
-        );
-
         $result = [];
-
+        $collection = $this->getCollection($ids);
         foreach ($collection as $block) {
             $result[(string) $block->getId()] = sprintf(
                 '[Block ID: %s] %s',
@@ -48,10 +43,44 @@ class Block implements EntityResolverInterface
 
     /**
      * @param string[] $ids
-     * @return array<string, string>
+     * @return array<string, array{url: string|null, entity_identifier: string}>
      */
-    public function resolveUrl(array $ids, int $storeId): array
+    public function resolveData(array $ids, int $storeId): array
     {
-        return [];
+        $result = [];
+        $collection = $this->getCollection($ids);
+        $collection->addFieldToFilter(
+            BlockInterface::IS_ACTIVE,
+            1,
+        );
+        /** @var BlockInterface $block */
+        foreach ($collection as $block) {
+            $result[(string) $block->getId()] = [
+                'url' => null,
+                'entity_identifier' => $block->getIdentifier(),
+            ];
+        }
+
+        return $result;
+    }
+
+    /**
+     * @param string[] $ids
+     */
+    private function getCollection(array $ids): Collection
+    {
+        /** @var Collection $collection */
+        $collection = $this->factory->create();
+        $collection->addFieldToSelect([
+            BlockInterface::BLOCK_ID,
+            BlockInterface::TITLE,
+            BlockInterface::IDENTIFIER,
+        ]);
+        $collection->addFieldToFilter(
+            BlockInterface::BLOCK_ID,
+            ['in' => $ids],
+        );
+
+        return $collection;
     }
 }

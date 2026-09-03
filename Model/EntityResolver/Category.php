@@ -8,8 +8,11 @@
 
 namespace Mygento\Navigation\Model\EntityResolver;
 
+use Magento\Catalog\Api\Data\CategoryInterface;
+use Magento\Catalog\Model\ResourceModel\Category\Collection;
 use Magento\Catalog\Model\ResourceModel\Category\CollectionFactory;
 use Magento\Framework\App\ResourceConnection;
+use Magento\Framework\GraphQl\Query\Uid;
 use Mygento\Navigation\Api\EntityResolverInterface;
 
 class Category implements EntityResolverInterface
@@ -17,6 +20,7 @@ class Category implements EntityResolverInterface
     private const TABLE_URL_REWRITE = 'url_rewrite';
 
     public function __construct(
+        private Uid $uidEncoder,
         private ResourceConnection $resourceConnection,
         private CollectionFactory $factory,
     ) {}
@@ -31,13 +35,9 @@ class Category implements EntityResolverInterface
             return [];
         }
 
-        $collection = $this->factory->create();
-        $collection->setStoreId(0);
-        $collection->addAttributeToSelect('name');
-        $collection->addFieldToFilter('entity_id', ['in' => $ids]);
-
+        $collection = $this->getCollection($ids);
         $result = [];
-
+        /** @var CategoryInterface $category */
         foreach ($collection as $category) {
             $result[(string) $category->getId()] = sprintf(
                 '[Category ID: %s] %s',
@@ -51,9 +51,48 @@ class Category implements EntityResolverInterface
 
     /**
      * @param string[] $ids
+     * @return array<string, array{url: string|null, entity_identifier: string}>
+     */
+    public function resolveData(array $ids, int $storeId): array
+    {
+        $result = [];
+        $urls = $this->resolveUrl($ids, $storeId);
+        $collection = $this->getCollection($ids);
+        $collection->addFieldToFilter(
+            CategoryInterface::KEY_IS_ACTIVE,
+            1,
+        );
+        /** @var CategoryInterface $category */
+        foreach ($collection as $category) {
+            $id = (string) $category->getId();
+            $result[$id] = [
+                'url' => $urls[$id] ?? null,
+                'entity_identifier' => $this->uidEncoder->encode($category->getId()),
+            ];
+        }
+
+        return $result;
+    }
+
+    /**
+     * @param string[] $ids
+     */
+    private function getCollection(array $ids): Collection
+    {
+        /** @var Collection $collection */
+        $collection = $this->factory->create();
+        $collection->setStoreId(0);
+        $collection->addAttributeToSelect(CategoryInterface::KEY_NAME);
+        $collection->addFieldToFilter('entity_id', ['in' => $ids]);
+
+        return $collection;
+    }
+
+    /**
+     * @param string[] $ids
      * @return array<string, string>
      */
-    public function resolveUrl(array $ids, int $storeId): array
+    private function resolveUrl(array $ids, int $storeId): array
     {
         $connection = $this->resourceConnection->getConnection();
         $select = $connection->select()

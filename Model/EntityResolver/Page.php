@@ -8,6 +8,8 @@
 
 namespace Mygento\Navigation\Model\EntityResolver;
 
+use Magento\Cms\Api\Data\PageInterface;
+use Magento\Cms\Model\ResourceModel\Page\Collection;
 use Magento\Cms\Model\ResourceModel\Page\CollectionFactory;
 use Magento\Framework\App\ResourceConnection;
 use Mygento\Navigation\Api\EntityResolverInterface;
@@ -27,15 +29,8 @@ class Page implements EntityResolverInterface
             return [];
         }
 
-        $collection = $this->factory->create();
-        $collection->addFieldToFilter(
-            'page_id',
-            ['in' => $ids],
-        );
-        $collection->addFieldToSelect(['page_id', 'title']);
-
         $result = [];
-
+        $collection = $this->getCollection($ids);
         foreach ($collection as $page) {
             $result[(string) $page->getId()] = sprintf(
                 '[Page ID: %s] %s',
@@ -49,9 +44,34 @@ class Page implements EntityResolverInterface
 
     /**
      * @param string[] $ids
+     * @return array<string, array{url: string|null, entity_identifier: string}>
+     */
+    public function resolveData(array $ids, int $storeId): array
+    {
+        $result = [];
+        $urls = $this->resolveUrl($ids, $storeId);
+        $collection = $this->getCollection($ids);
+        $collection->addFieldToFilter(
+            PageInterface::IS_ACTIVE,
+            1,
+        );
+        /** @var PageInterface $page */
+        foreach ($collection as $page) {
+            $id = (string) $page->getId();
+            $result[$id] = [
+                'url' => $urls[$id] ?? null,
+                'entity_identifier' => $page->getIdentifier(),
+            ];
+        }
+
+        return $result;
+    }
+
+    /**
+     * @param string[] $ids
      * @return array<string, string>
      */
-    public function resolveUrl(array $ids, int $storeId): array
+    private function resolveUrl(array $ids, int $storeId): array
     {
         $connection = $this->resourceConnection->getConnection();
         $select = $connection->select()
@@ -68,5 +88,25 @@ class Page implements EntityResolverInterface
             ->order('ur.url_rewrite_id ASC');
 
         return $connection->fetchPairs($select);
+    }
+
+    /**
+     * @param string[] $ids
+     */
+    private function getCollection(array $ids): Collection
+    {
+        /** @var Collection $collection */
+        $collection = $this->factory->create();
+        $collection->addFieldToFilter(
+            PageInterface::PAGE_ID,
+            ['in' => $ids],
+        );
+        $collection->addFieldToSelect([
+            PageInterface::IDENTIFIER,
+            PageInterface::PAGE_ID,
+            PageInterface::TITLE,
+        ]);
+
+        return $collection;
     }
 }
