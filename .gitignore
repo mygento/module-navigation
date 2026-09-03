@@ -1,6 +1,7 @@
 /nbproject
 /node_modules
 /generate
+/generated
 /.idea
 /vendor
 /composer.lock

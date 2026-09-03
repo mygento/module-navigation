@@ -89,35 +89,6 @@ class Item extends AbstractDb
         return $connection->fetchCol($select, ['entity_id' => (int) $id]);
     }
 
-    public function getItemsWithTargetEntityId(int $menuId, int $storeId): array
-    {
-        $connection = $this->getConnection();
-        $entityMetadata = $this->metadataPool->getMetadata(ItemInterface::class);
-        $linkField = $entityMetadata->getLinkField();
-        $select = $connection->select()->distinct()
-            ->from(
-                ['e' => $this->getMainTable()],
-                [
-                    'entity_id',
-                    'entity_type',
-                    'name',
-                    'sort_order',
-                    'image',
-                    'entity_identifier',
-                ],
-            )
-            ->joinInner(
-                ['es' => $this->getMainTable() . '_store'],
-                'store_id =  ' . $storeId . ' AND es.entity_id = e.' . $linkField,
-                [],
-            )
-            ->where('e.is_active = 1')
-            ->where('e.menu = ?', $menuId)
-            ->order('e.sort_order ASC');
-
-        return $connection->fetchAll($select);
-    }
-
     /**
      * Initialize resource model
      */

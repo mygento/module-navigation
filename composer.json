@@ -13,7 +13,8 @@
     "mygento"
   ],
   "require": {
-    "mygento/module-base": "~2.4.0"
+    "mygento/module-base": "~2.4.0",
+    "mygento/module-image-common": "~2.4.0"
   },
   "require-dev": {
     "mygento/coding-standard": "~2.14.0"

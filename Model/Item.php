@@ -54,7 +54,7 @@ class Item extends AbstractModel implements ItemInterface
      */
     public function isActive(): bool
     {
-        return $this->getData(self::IS_ACTIVE);
+        return (bool) $this->getData(self::IS_ACTIVE);
     }
 
     /**
@@ -111,6 +111,22 @@ class Item extends AbstractModel implements ItemInterface
     public function setEntityIdentifier(?string $entityIdentifier): self
     {
         return $this->setData(self::ENTITY_IDENTIFIER, $entityIdentifier);
+    }
+
+    /**
+     * Get image
+     */
+    public function getImage(): ?string
+    {
+        return $this->getData(self::IMAGE);
+    }
+
+    /**
+     * Set image
+     */
+    public function setImage(?string $image): self
+    {
+        return $this->setData(self::IMAGE, $image);
     }
 
     /**
