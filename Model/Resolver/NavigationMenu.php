@@ -104,12 +104,21 @@ class NavigationMenu implements ResolverInterface
             'sort_order' => (int) $item->getSortOrder(),
             'name' => $item->getName(),
             'link' => $item->getEntityIdentifier(),
-            'image' => $item->getImage() ? $this->fileInfo->getMediaUrl('mygentonav/item/' . $item->getImage()) : null,
+            'image' => $item->getImage()
+                ? $this->fileInfo->getMediaUrl('mygentonav/item/' . $item->getImage())
+                : null,
         ];
+
         if ($item->getEntityIdentifier() && isset($resolved[$item->getEntityType()])) {
-            $link = $resolved[$item->getEntityType()][$item->getEntityIdentifier()]['url'] ?? null;
-            $entity['link'] =  $link !== null ? '/' . $link : null;
-            $entity['entity_identifier'] = $resolved[$item->getEntityType()][$item->getEntityIdentifier()]['entity_identifier'];
+            $resolvedEntity = $resolved[$item->getEntityType()][$item->getEntityIdentifier()] ?? null;
+
+            if ($resolvedEntity) {
+                $entity = array_merge($entity, $resolvedEntity);
+
+                $entity['link'] = isset($resolvedEntity['url'])
+                    ? '/' . $resolvedEntity['url']
+                    : null;
+            }
         }
 
         return $entity;
