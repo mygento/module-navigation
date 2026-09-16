@@ -9,6 +9,7 @@
 namespace Mygento\Navigation\Model\Item;
 
 use Magento\Framework\App\Request\DataPersistorInterface;
+use Magento\Framework\Exception\FileSystemException;
 use Magento\Ui\DataProvider\Modifier\PoolInterface;
 use Magento\Ui\DataProvider\ModifierPoolDataProvider;
 use Mygento\Navigation\Api\Data\ItemInterface;
@@ -120,8 +121,12 @@ class DataProvider extends ModifierPoolDataProvider
             return $result;
         }
 
-        $stat = $this->fileInfo->getStat($imageFilePath);
-        $mime = $this->fileInfo->getMimeType($imageFilePath);
+        try {
+            $stat = $this->fileInfo->getStat($imageFilePath);
+            $mime = $this->fileInfo->getMimeType($imageFilePath);
+        } catch (FileSystemException $e) {
+            return $result;
+        }
 
         return [
             [
