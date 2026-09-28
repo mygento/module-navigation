@@ -46,6 +46,10 @@ Mygento:
             type: varchar
             nullable: true
             comment: 'Link Identifier'
+          image:
+            type: varchar
+            nullable: true
+            comment: 'Image'
           sort_order:
             type: smallint
             nullable: false

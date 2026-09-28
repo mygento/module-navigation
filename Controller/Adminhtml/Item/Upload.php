@@ -11,12 +11,12 @@ namespace Mygento\Navigation\Controller\Adminhtml\Item;
 use Magento\Backend\App\Action;
 use Magento\Framework\Controller\Result\Json;
 use Magento\Framework\Controller\Result\JsonFactory;
-use Mygento\Base\Model\ImageUploader;
+use Mygento\ImageCommon\Model\Uploader;
 
 class Upload extends \Magento\Backend\App\Action
 {
     public function __construct(
-        private ImageUploader $imageUploader,
+        private Uploader $imageUploader,
         private JsonFactory $resultJsonFactory,
         Action\Context $context,
     ) {

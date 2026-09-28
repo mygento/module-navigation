@@ -165,215 +165,6 @@
                 <label translate="true">Entity Type</label>
                 <visible>true</visible>
                 <dataScope>entity_type</dataScope>
-                <switcherConfig>
-                    <rules>
-                        <rule name="0">
-                            <value></value>
-                            <actions>
-                                <action name="0">
-                                    <target>navigation_item_edit.navigation_item_edit.general.assign_cms_page_container</target>
-                                    <callback>visible</callback>
-                                    <params>
-                                        <param name="0" xsi:type="boolean">false</param>
-                                    </params>
-                                </action>
-                                <action name="1">
-                                    <target>navigation_item_edit.navigation_item_edit.general.assign_cms_block_container</target>
-                                    <callback>visible</callback>
-                                    <params>
-                                        <param name="0" xsi:type="boolean">false</param>
-                                    </params>
-                                </action>
-                                <action name="2">
-                                    <target>navigation_item_edit.navigation_item_edit.general.catalog_category_entity</target>
-                                    <callback>hide</callback>
-                                </action>
-                                <action name="3">
-                                    <target>navigation_item_edit.navigation_item_edit.general.catalog_product_entity_container</target>
-                                    <callback>visible</callback>
-                                    <params>
-                                        <param name="0" xsi:type="boolean">false</param>
-                                    </params>
-                                </action>
-                                <action name="4">
-                                    <target>navigation_item_edit.navigation_item_edit.general.entity_identifier</target>
-                                    <callback>hide</callback>
-                                </action>
-                            </actions>
-                        </rule>
-                        <rule name="1">
-                            <value>custom</value>
-                            <actions>
-                                <action name="0">
-                                    <target>navigation_item_edit.navigation_item_edit.general.assign_cms_page_container</target>
-                                    <callback>visible</callback>
-                                    <params>
-                                        <param name="0" xsi:type="boolean">false</param>
-                                    </params>
-                                </action>
-                                <action name="1">
-                                    <target>navigation_item_edit.navigation_item_edit.general.assign_cms_block_container</target>
-                                    <callback>visible</callback>
-                                    <params>
-                                        <param name="0" xsi:type="boolean">false</param>
-                                    </params>
-                                </action>
-                                <action name="2">
-                                    <target>navigation_item_edit.navigation_item_edit.general.catalog_category_entity</target>
-                                    <callback>hide</callback>
-                                </action>
-                                <action name="3">
-                                    <target>navigation_item_edit.navigation_item_edit.general.catalog_product_entity_container</target>
-                                    <callback>visible</callback>
-                                    <params>
-                                        <param name="0" xsi:type="boolean">false</param>
-                                    </params>
-                                </action>
-                                <action name="4">
-                                    <target>navigation_item_edit.navigation_item_edit.general.entity_identifier</target>
-                                    <callback>show</callback>
-                                </action>
-                            </actions>
-                        </rule>
-                        <rule name="2">
-                            <value>cms_page</value>
-                            <actions>
-                                <action name="0">
-                                    <target>navigation_item_edit.navigation_item_edit.general.assign_cms_page_container</target>
-                                    <callback>visible</callback>
-                                    <params>
-                                        <param name="0" xsi:type="boolean">true</param>
-                                    </params>
-                                </action>
-                                <action name="1">
-                                    <target>navigation_item_edit.navigation_item_edit.general.assign_cms_block_container</target>
-                                    <callback>visible</callback>
-                                    <params>
-                                        <param name="0" xsi:type="boolean">false</param>
-                                    </params>
-                                </action>
-                                <action name="2">
-                                    <target>navigation_item_edit.navigation_item_edit.general.catalog_category_entity</target>
-                                    <callback>hide</callback>
-                                </action>
-                                <action name="3">
-                                    <target>navigation_item_edit.navigation_item_edit.general.catalog_product_entity_container</target>
-                                    <callback>visible</callback>
-                                    <params>
-                                        <param name="0" xsi:type="boolean">false</param>
-                                    </params>
-                                </action>
-                                <action name="4">
-                                    <target>navigation_item_edit.navigation_item_edit.general.entity_identifier</target>
-                                    <callback>hide</callback>
-                                </action>
-                            </actions>
-                        </rule>
-                        <rule name="3">
-                            <value>cms_block</value>
-                            <actions>
-                                <action name="0">
-                                    <target>navigation_item_edit.navigation_item_edit.general.assign_cms_page_container</target>
-                                    <callback>visible</callback>
-                                    <params>
-                                        <param name="0" xsi:type="boolean">false</param>
-                                    </params>
-                                </action>
-                                <action name="1">
-                                    <target>navigation_item_edit.navigation_item_edit.general.assign_cms_block_container</target>
-                                    <callback>visible</callback>
-                                    <params>
-                                        <param name="0" xsi:type="boolean">true</param>
-                                    </params>
-                                </action>
-                                <action name="2">
-                                    <target>navigation_item_edit.navigation_item_edit.general.catalog_category_entity</target>
-                                    <callback>hide</callback>
-                                </action>
-                                <action name="3">
-                                    <target>navigation_item_edit.navigation_item_edit.general.catalog_product_entity_container</target>
-                                    <callback>visible</callback>
-                                    <params>
-                                        <param name="0" xsi:type="boolean">false</param>
-                                    </params>
-                                </action>
-                                <action name="4">
-                                    <target>navigation_item_edit.navigation_item_edit.general.entity_identifier</target>
-                                    <callback>hide</callback>
-                                </action>
-                            </actions>
-                        </rule>
-                        <rule name="4">
-                            <value>catalog_category</value>
-                            <actions>
-                                <action name="0">
-                                    <target>navigation_item_edit.navigation_item_edit.general.assign_cms_page_container</target>
-                                    <callback>visible</callback>
-                                    <params>
-                                        <param name="0" xsi:type="boolean">false</param>
-                                    </params>
-                                </action>
-                                <action name="1">
-                                    <target>navigation_item_edit.navigation_item_edit.general.assign_cms_block_container</target>
-                                    <callback>visible</callback>
-                                    <params>
-                                        <param name="0" xsi:type="boolean">false</param>
-                                    </params>
-                                </action>
-                                <action name="2">
-                                    <target>navigation_item_edit.navigation_item_edit.general.catalog_category_entity</target>
-                                    <callback>show</callback>
-                                </action>
-                                <action name="3">
-                                    <target>navigation_item_edit.navigation_item_edit.general.catalog_product_entity_container</target>
-                                    <callback>visible</callback>
-                                    <params>
-                                        <param name="0" xsi:type="boolean">false</param>
-                                    </params>
-                                </action>
-                                <action name="4">
-                                    <target>navigation_item_edit.navigation_item_edit.general.entity_identifier</target>
-                                    <callback>hide</callback>
-                                </action>
-                            </actions>
-                        </rule>
-                        <rule name="5">
-                            <value>catalog_product</value>
-                            <actions>
-                                <action name="0">
-                                    <target>navigation_item_edit.navigation_item_edit.general.assign_cms_page_container</target>
-                                    <callback>visible</callback>
-                                    <params>
-                                        <param name="0" xsi:type="boolean">false</param>
-                                    </params>
-                                </action>
-                                <action name="1">
-                                    <target>navigation_item_edit.navigation_item_edit.general.assign_cms_block_container</target>
-                                    <callback>visible</callback>
-                                    <params>
-                                        <param name="0" xsi:type="boolean">false</param>
-                                    </params>
-                                </action>
-                                <action name="2">
-                                    <target>navigation_item_edit.navigation_item_edit.general.catalog_category_entity</target>
-                                    <callback>hide</callback>
-                                </action>
-                                <action name="3">
-                                    <target>navigation_item_edit.navigation_item_edit.general.catalog_product_entity_container</target>
-                                    <callback>visible</callback>
-                                    <params>
-                                        <param name="0" xsi:type="boolean">true</param>
-                                    </params>
-                                </action>
-                                <action name="4">
-                                    <target>navigation_item_edit.navigation_item_edit.general.entity_identifier</target>
-                                    <callback>hide</callback>
-                                </action>
-                            </actions>
-                        </rule>
-                    </rules>
-                    <enabled>true</enabled>
-                </switcherConfig>
                 <validation>
                     <rule name="required-entry" xsi:type="boolean">true</rule>
                 </validation>
@@ -387,10 +178,16 @@
                 </select>
             </formElements>
         </field>
-        <field sortOrder="70" name="entity_identifier" formElement="input">
+        <field sortOrder="70" name="entity_identifier" formElement="input" component="Magento_Catalog/js/components/visible-on-option/input">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="source" xsi:type="string">item</item>
+                    <item name="valuesForOptions" xsi:type="array">
+                        <item name="custom" xsi:type="string">custom</item>
+                    </item>
+                    <item name="imports" xsi:type="array">
+                        <item name="toggleVisibility" xsi:type="string">navigation_item_edit.navigation_item_edit.general.entity_type:value</item>
+                    </item>
                 </item>
             </argument>
             <settings>
@@ -412,7 +209,7 @@
                 <dataScope>entity_label</dataScope>
             </settings>
         </field>
-        <field sortOrder="90" name="catalog_category_entity" component="Magento_Catalog/js/components/new-category" formElement="select">
+        <field sortOrder="90" name="catalog_category_entity" component="Mygento_Navigation/js/components/visible-on-option/new-category" formElement="select">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="filterOptions" xsi:type="boolean">true</item>
@@ -420,6 +217,12 @@
                     <item name="showCheckbox" xsi:type="boolean">false</item>
                     <item name="disableLabel" xsi:type="boolean">true</item>
                     <item name="levelsVisibility" xsi:type="number">1</item>
+                    <item name="valuesForOptions" xsi:type="array">
+                        <item name="catalog_category" xsi:type="string">catalog_category</item>
+                    </item>
+                    <item name="imports" xsi:type="array">
+                        <item name="toggleVisibility" xsi:type="string">navigation_item_edit.navigation_item_edit.general.entity_type:value</item>
+                    </item>
                 </item>
             </argument>
             <settings>
@@ -440,13 +243,19 @@
                 </select>
             </formElements>
         </field>
-        <container name="catalog_product_entity_container" component="Magento_Ui/js/form/components/group" sortOrder="65">
+        <container name="catalog_product_entity_container" component="Mygento_Navigation/js/components/visible-on-option/group" sortOrder="65">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="formElement" xsi:type="string">container</item>
                     <item name="breakLine" xsi:type="boolean">false</item>
                     <item name="dataScope" xsi:type="string" />
                     <item name="label" xsi:type="string" />
+                    <item name="valuesForOptions" xsi:type="array">
+                        <item name="catalog_product" xsi:type="string">catalog_product</item>
+                    </item>
+                    <item name="imports" xsi:type="array">
+                        <item name="toggleVisibility" xsi:type="string">navigation_item_edit.navigation_item_edit.general.entity_type:value</item>
+                    </item>
                 </item>
             </argument>
             <button name="assign_catalog_product_button" template="ui/form/components/button/container">
@@ -469,13 +278,19 @@
                 </argument>
             </button>
         </container>
-        <container name="assign_cms_page_container" component="Magento_Ui/js/form/components/group" sortOrder="65">
+        <container name="assign_cms_page_container" component="Mygento_Navigation/js/components/visible-on-option/group" sortOrder="65">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="formElement" xsi:type="string">container</item>
                     <item name="breakLine" xsi:type="boolean">false</item>
                     <item name="dataScope" xsi:type="string" />
                     <item name="label" xsi:type="string" />
+                    <item name="valuesForOptions" xsi:type="array">
+                        <item name="cms_page" xsi:type="string">cms_page</item>
+                    </item>
+                    <item name="imports" xsi:type="array">
+                        <item name="toggleVisibility" xsi:type="string">navigation_item_edit.navigation_item_edit.general.entity_type:value</item>
+                    </item>
                 </item>
             </argument>
             <button name="assign_cms_page_button" template="ui/form/components/button/container">
@@ -498,13 +313,19 @@
                 </argument>
             </button>
         </container>
-        <container name="assign_cms_block_container" component="Magento_Ui/js/form/components/group" sortOrder="65">
+        <container name="assign_cms_block_container" component="Mygento_Navigation/js/components/visible-on-option/group" sortOrder="65">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="formElement" xsi:type="string">container</item>
                     <item name="breakLine" xsi:type="boolean">false</item>
                     <item name="dataScope" xsi:type="string" />
                     <item name="label" xsi:type="string" />
+                    <item name="valuesForOptions" xsi:type="array">
+                        <item name="cms_block" xsi:type="string">cms_block</item>
+                    </item>
+                    <item name="imports" xsi:type="array">
+                        <item name="toggleVisibility" xsi:type="string">navigation_item_edit.navigation_item_edit.general.entity_type:value</item>
+                    </item>
                 </item>
             </argument>
             <button name="assign_cms_block_button" template="ui/form/components/button/container">
