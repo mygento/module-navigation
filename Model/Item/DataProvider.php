@@ -84,9 +84,7 @@ class DataProvider extends ModifierPoolDataProvider
             $data['image'] = $this->getImageData($data, 'image');
             $type = $model->getEntityType() ?? null;
             $identifier = $model->getEntityIdentifier() ?? null;
-            if ($type && $identifier) {
-                $data['entity_label'] = $resolved[$type][$identifier];
-            }
+            $data['entity_label'] = $resolved[$type][$identifier] ?? null;
 
             $this->loadedData[$model->getId()] = $data;
         }
